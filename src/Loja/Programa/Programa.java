@@ -12,7 +12,6 @@ public class Programa {
         System.out.println(CDs.getListaDeTerror().get(0).getNome());
         System.out.println(CDs.getListaDeTerror().get(0).getQnt());
 
-        //TESTANDO PUSH REQUEST
 
     }
 }
