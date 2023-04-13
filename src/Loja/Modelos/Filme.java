@@ -1,4 +1,4 @@
-package Loja.Tipos;
+package Loja.Modelos;
 
 public class Filme {
     private String nome;

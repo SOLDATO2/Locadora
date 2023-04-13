@@ -1,4 +1,4 @@
-package Loja.Tipos;
+package Loja.Modelos;
 
 import java.util.List;
 import java.util.ArrayList;
