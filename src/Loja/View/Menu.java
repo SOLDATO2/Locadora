@@ -3,18 +3,18 @@ import java.util.Scanner;
 import java.util.List;
 import java.util.ArrayList;
 
-import Loja.Modelos.EstoqueLoja;
-import Loja.Modelos.Filme;
-import Loja.Modelos.Funcionario;
+import Loja.Modelos.*;
+
 
 public class Menu {
     public void menuLoja(){
         EstoqueLoja CDs = new EstoqueLoja();
         EstoqueLoja VHS = new EstoqueLoja();
         List<Funcionario> listaFuncionarios = new ArrayList<>(); // seria necessario exigir a criação de um funcionario antes usar o programa caso esse lista tivesse dentro da classe Funcionario.java
+        List<Cliente> listaClientes = new ArrayList<>();
         int escolha;
         String nome;
-        String quantidade;
+        int quantidade;
         String nomeIndividuo, cargo, cpf;
         
         Scanner scannerInteiro = new Scanner(System.in);
@@ -26,6 +26,8 @@ public class Menu {
             System.out.println("[2] CONSULTAR ESTOQUE");
             System.out.println("[3] REGISTRAR FUNCIONARIOS");
             System.out.println("[4] CONSULTAR FUNCIONARIOS");
+            System.out.println("[5] REGISTRAR UM ALUGUEL");
+            System.out.println("[6] CONSULTAR ALUGUEIS");
             System.out.println("[0] SAIR E APAGAR LOJA");
             escolha = scannerInteiro.nextInt();
             // CDs
@@ -41,7 +43,7 @@ public class Menu {
                         System.out.println("QUAL É O NOME DO FILME?");
                         nome = scannerString.nextLine();
                         System.out.println("QUAL É A QUANTIDADADE?");
-                        quantidade = scannerString.nextLine();
+                        quantidade = scannerInteiro.nextInt();
                         Filme cdTerror = new Filme(nome, quantidade);
                         CDs.addTerror(cdTerror);
                         System.out.println("CD ADICIONADO COM SUCESSO!");
@@ -50,7 +52,7 @@ public class Menu {
                         System.out.println("QUAL É O NOME DO FILME?");
                         nome = scannerString.nextLine();
                         System.out.println("QUAL É A QUANTIDADADE?");
-                        quantidade = scannerString.nextLine();
+                        quantidade = scannerInteiro.nextInt();
                         Filme cdAcao = new Filme(nome, quantidade);
                         CDs.addAcao(cdAcao);
                         System.out.println("CD ADICIONADO COM SUCESSO!");
@@ -59,7 +61,7 @@ public class Menu {
                         System.out.println("QUAL É O NOME DO FILME?");
                         nome = scannerString.nextLine();
                         System.out.println("QUAL É A QUANTIDADADE?");
-                        quantidade = scannerString.nextLine();
+                        quantidade = scannerInteiro.nextInt();
                         Filme cdDrama = new Filme(nome, quantidade);
                         CDs.addDrama(cdDrama);
                         System.out.println("CD ADICIONADO COM SUCESSO!");
@@ -68,7 +70,7 @@ public class Menu {
                         System.out.println("QUAL É O NOME DO FILME?");
                         nome = scannerString.nextLine();
                         System.out.println("QUAL É A QUANTIDADADE?");
-                        quantidade = scannerString.nextLine();
+                        quantidade = scannerInteiro.nextInt();
                         Filme cdComedia = new Filme(nome, quantidade);
                         CDs.addComedia(cdComedia);
                         System.out.println("CD ADICIONADO COM SUCESSO!");
@@ -82,7 +84,7 @@ public class Menu {
                         System.out.println("QUAL É O NOME DO FILME?");
                         nome = scannerString.nextLine();
                         System.out.println("QUAL É A QUANTIDADADE?");
-                        quantidade = scannerString.nextLine();
+                        quantidade = scannerInteiro.nextInt();
                         Filme VHSTerror = new Filme(nome, quantidade);
                         VHS.addTerror(VHSTerror);
                         System.out.println("CD ADICIONADO COM SUCESSO!");
@@ -91,7 +93,7 @@ public class Menu {
                         System.out.println("QUAL É O NOME DO FILME?");
                         nome = scannerString.nextLine();
                         System.out.println("QUAL É A QUANTIDADADE?");
-                        quantidade = scannerString.nextLine();
+                        quantidade = scannerInteiro.nextInt();
                         Filme VHSAcao = new Filme(nome, quantidade);
                         VHS.addAcao(VHSAcao);
                         System.out.println("CD ADICIONADO COM SUCESSO!");
@@ -100,7 +102,7 @@ public class Menu {
                         System.out.println("QUAL É O NOME DO FILME?");
                         nome = scannerString.nextLine();
                         System.out.println("QUAL É A QUANTIDADADE?");
-                        quantidade = scannerString.nextLine();
+                        quantidade = scannerInteiro.nextInt();
                         Filme VHSDrama = new Filme(nome, quantidade);
                         VHS.addDrama(VHSDrama);
                         System.out.println("CD ADICIONADO COM SUCESSO!");
@@ -109,7 +111,7 @@ public class Menu {
                         System.out.println("QUAL É O NOME DO FILME?");
                         nome = scannerString.nextLine();
                         System.out.println("QUAL É A QUANTIDADADE?");
-                        quantidade = scannerString.nextLine();
+                        quantidade = scannerInteiro.nextInt();
                         Filme VHSComedia = new Filme(nome, quantidade);
                         VHS.addComedia(VHSComedia);
                         System.out.println("CD ADICIONADO COM SUCESSO!");
@@ -193,7 +195,7 @@ public class Menu {
                 nomeIndividuo = scannerString.nextLine();
                 System.out.println("DIGITE O CPF:");
                 cpf = scannerString.nextLine();
-                System.out.println("DIGITE O CARGO"); // talvez mudar esse sistema para o usuario escolher algum cargo pre-estabelecido para facilitar a atribuição no banco de dados na 2a parte do projeto
+                System.out.println("DIGITE O CARGO:"); // talvez mudar esse sistema para o usuario escolher algum cargo pre-estabelecido para facilitar a atribuição no banco de dados na 2a parte do projeto
                 cargo = scannerString.nextLine();
                 Funcionario funcionario = new Funcionario(nomeIndividuo, cpf, cargo);
                 listaFuncionarios.add(funcionario);
@@ -211,6 +213,17 @@ public class Menu {
                         System.out.println("Nome cargo: " + item.getCargo());
                         System.out.println("----------------------------------------------------------");
                     }
+                }
+                // FAZER SISTEMA DE CLIENTES 17/04/23
+            }else if(escolha == 5){ // REGISTRO DE ALUGUEL
+                System.out.println("Ainda não foi feito.");
+            }else if(escolha == 6){// CONSULTA DE ALUGUEL
+                if(listasEstaoVazias(CDs, VHS) == true){
+                    System.out.println("Não é possivel registrar um aluguel pois não existe nenhum filme em estoque.");
+                }else if(listaClientes.isEmpty()){
+                    System.out.println("Não é possivel consultar um aluguel pois não existe nenhum cliente registrado.");
+                }else{
+                    System.out.println("Ainda não foi feito.");
                 }
             }else if(escolha == 0){
                 scannerInteiro.close();
@@ -274,6 +287,18 @@ public class Menu {
             System.out.println("Quantidade: " + qualEstoque.getListaDeComedia().get(x).getQnt());
             System.out.println("----------------------------------------------------------");
         }
+    }
+
+    private Boolean listasEstaoVazias(EstoqueLoja x, EstoqueLoja y){
+
+        if((x.getListaDeTerror().isEmpty()) && (x.getListaDeAcao().isEmpty()) && (x.getListaDeDrama().isEmpty()) && (x.getListaDeComedia().isEmpty())){
+            return true;
+        }else if((x.getListaDeTerror().isEmpty()) && (x.getListaDeAcao().isEmpty()) && (x.getListaDeDrama().isEmpty()) && (x.getListaDeComedia().isEmpty())){
+            return true;
+        }else{
+            return false;
+        }
+        
     }
     
 }

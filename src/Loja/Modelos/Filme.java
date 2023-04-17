@@ -2,11 +2,11 @@ package Loja.Modelos;
 
 public class Filme {
     private String nome;
-    private String quantidade;
+    private int quantidade;
 
 
     //constructor
-    public Filme(String nomeQualquer, String quantidadeQualquer) {
+    public Filme(String nomeQualquer, int quantidadeQualquer) {
         this.nome = nomeQualquer;
         this.quantidade = quantidadeQualquer;
     }
@@ -16,7 +16,7 @@ public class Filme {
         return nome;
     }
 
-    public String getQnt(){
+    public int getQnt(){
         return quantidade;
     }
 
