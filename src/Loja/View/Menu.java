@@ -1,7 +1,6 @@
 package Loja.View;
 import java.util.Scanner;
 import java.util.List;
-import java.time.LocalDate;
 import java.util.ArrayList;
 
 
@@ -11,8 +10,11 @@ public class Menu {
     public void menuLoja(){
         EstoqueLoja CDs = new EstoqueLoja();
         EstoqueLoja VHS = new EstoqueLoja();
+
+        ControleDeAluguel cadastroClientes = new ControleDeAluguel();
         List<Funcionario> listaFuncionarios = new ArrayList<>(); // seria necessario exigir a criação de um funcionario antes usar o programa caso esse lista tivesse dentro da classe Funcionario.java
-        List<Cliente> listaClientes = new ArrayList<>(); // substituir por classe Aluguel ( classe intermediaria )
+
+
         int escolha;
         String nome;
         int quantidade;
@@ -21,6 +23,8 @@ public class Menu {
         Scanner scannerInteiro = new Scanner(System.in);
         Scanner scannerString = new Scanner(System.in);
         while(true){
+
+
             System.out.println("SISTEMA DE LOCADORA CD/VHS\n----------------------------------------------");
             System.out.println("ESCOLHA UMA OPÇÃO:");
             System.out.println("[1] REGISTRAR UM CD/VHS");
@@ -221,11 +225,17 @@ public class Menu {
                 if(listasEstaoVazias(CDs, VHS)== true){ // verifica se existe estoque para registrar clientes
                     System.out.println("NÃO É POSSIVEL REGISTRAR CLIENTES POIS NÃO EXISTE FILMES EM ESTOQUE");
                 }else{
-                    String nomeCliente, cpfCliente;
+
+
+
+                    String nomeCliente, cpfCliente, numeroCelular;
                     System.out.println("QUAL É O NOME DO CLIENTE?");
                     nomeCliente = scannerString.nextLine();
                     System.out.println("DIGITE O CPF DO CLIENTE:");
                     cpfCliente = scannerString.nextLine();
+                    System.out.println("QUAL É O NUMERO DE TELEFONE:");
+                    numeroCelular = scannerString.nextLine();
+
                     
                     int continuar=0;
                     
@@ -299,8 +309,17 @@ public class Menu {
                                             
                                             
                                     //Provavelmente remover esta parte e colocar no final apenas uma vez
-                                            Cliente cliente = new Cliente(nomeCliente, cpfCliente,filme.getNome(),quantidadeFilme);
-                                            listaClientes.add(cliente);//Adiciona cliente na lista
+                                            Cliente cliente = new Cliente(nomeCliente, cpfCliente, numeroCelular);
+
+                                            Aluguel aluguel = new Aluguel(cliente);
+                                            aluguel.adicionarFilmes(filmesTerror);
+                                            cadastroClientes.adicionar(aluguel);
+                                            //Continuar aqui 27/04/23
+
+
+                                            
+                                            
+                                            
                                             
                                         //Tirar quantidade pedida do estoque 
                                             
@@ -342,9 +361,9 @@ public class Menu {
                                 
                                 for(linha = 0; linha < filmesAcao.size(); linha++) {
                                     if(filmesAcao.get(linha).getQnt() > 0){
-                                        if(quantidadeFilme<= CDs.getListaDeTerror().get(linha).getQnt()) {
+                                        if(quantidadeFilme<= CDs.getListaDeAcao().get(linha).getQnt()) {
                                     
-                                            Cliente cliente = new Cliente(nomeCliente, cpfCliente,filme.getNome(),quantidadeFilme);
+                                            Cliente cliente = new Cliente(nomeCliente, cpfCliente,filme.getNome(),quantidadeFilme,dataFormatada, dataDevolucaoFormatada);
                                             listaClientes.add(cliente);
                                             System.out.println("ALUGUEL FEITO COM SUCESSO!\n");
                                         }else {
@@ -379,9 +398,9 @@ public class Menu {
                                 
                                 for(linha = 0; linha < filmesDrama.size(); linha++) {
                                     if(filmesDrama.get(linha).getQnt() > 0){
-                                        if(quantidadeFilme<= CDs.getListaDeTerror().get(linha).getQnt()) {
+                                        if(quantidadeFilme<= CDs.getListaDeDrama().get(linha).getQnt()) {
                                     
-                                            Cliente cliente = new Cliente(nomeCliente, cpfCliente,filme.getNome(),quantidadeFilme);
+                                            Cliente cliente = new Cliente(nomeCliente, cpfCliente,filme.getNome(),quantidadeFilme,dataFormatada, dataDevolucaoFormatada);
                                             listaClientes.add(cliente);
                                             System.out.println("ALUGUEL FEITO COM SUCESSO!");
                                         }else {
@@ -418,9 +437,9 @@ public class Menu {
                                 
                                 for(linha = 0; linha < filmesComedia.size(); linha++) {
                                     if(filmesComedia.get(linha).getQnt() > 0){
-                                        if(quantidadeFilme<= CDs.getListaDeTerror().get(linha).getQnt()) {
+                                        if(quantidadeFilme<= CDs.getListaDeComedia().get(linha).getQnt()) {
                                     
-                                            Cliente cliente = new Cliente(nomeCliente, cpfCliente,filme.getNome(),quantidadeFilme);
+                                            Cliente cliente = new Cliente(nomeCliente, cpfCliente,filme.getNome(),quantidadeFilme,dataFormatada, dataDevolucaoFormatada);
                                             listaClientes.add(cliente);
                                             System.out.println("ALUGUEL FEITO COM SUCESSO!");
                                         }else {
@@ -495,7 +514,7 @@ public class Menu {
                                     if(filmesTerror.get(linha).getQnt() > 0){
                                         if(quantidadeFilme<= VHS.getListaDeTerror().get(linha).getQnt()) {
                                     
-                                            Cliente cliente = new Cliente(nomeCliente, cpfCliente,filme.getNome(),quantidadeFilme);
+                                            Cliente cliente = new Cliente(nomeCliente, cpfCliente,filme.getNome(),quantidadeFilme,dataFormatada, dataDevolucaoFormatada);
                                             listaClientes.add(cliente);
                                             System.out.println("ALUGUEL FEITO COM SUCESSO!");
                                         }else {
@@ -535,9 +554,9 @@ public class Menu {
                                 
                                 for(linha = 0; linha < filmesAcao.size(); linha++) {
                                     if(filmesAcao.get(linha).getQnt() > 0){
-                                        if(quantidadeFilme<= VHS.getListaDeTerror().get(linha).getQnt()) {
+                                        if(quantidadeFilme<= VHS.getListaDeAcao().get(linha).getQnt()) {
                                     
-                                            Cliente cliente = new Cliente(nomeCliente, cpfCliente,filme.getNome(),quantidadeFilme);
+                                            Cliente cliente = new Cliente(nomeCliente, cpfCliente,filme.getNome(),quantidadeFilme,dataFormatada, dataDevolucaoFormatada);
                                             listaClientes.add(cliente);
                                             System.out.println("ALUGUEL FEITO COM SUCESSO!");
                                         }else {
@@ -572,9 +591,9 @@ public class Menu {
                                 
                                 for(linha = 0; linha < filmesDrama.size(); linha++) {
                                     if(filmesDrama.get(linha).getQnt() > 0){
-                                        if(quantidadeFilme<= VHS.getListaDeTerror().get(linha).getQnt()) {
+                                        if(quantidadeFilme<= VHS.getListaDeDrama().get(linha).getQnt()) {
                                     
-                                            Cliente cliente = new Cliente(nomeCliente, cpfCliente,filme.getNome(),quantidadeFilme);
+                                            Cliente cliente = new Cliente(nomeCliente, cpfCliente,filme.getNome(),quantidadeFilme,dataFormatada, dataDevolucaoFormatada);
                                             listaClientes.add(cliente);
                                             System.out.println("ALUGUEL FEITO COM SUCESSO!");
                                         }else {
@@ -611,9 +630,9 @@ public class Menu {
                                 
                                 for(linha = 0; linha < filmesComedia.size(); linha++) {
                                     if(filmesComedia.get(linha).getQnt() > 0){
-                                        if(quantidadeFilme<= VHS.getListaDeTerror().get(linha).getQnt()) {
+                                        if(quantidadeFilme<= VHS.getListaDeComedia().get(linha).getQnt()) {
                                     
-                                            Cliente cliente = new Cliente(nomeCliente, cpfCliente,filme.getNome(),quantidadeFilme);
+                                            Cliente cliente = new Cliente(nomeCliente, cpfCliente,filme.getNome(),quantidadeFilme,dataFormatada, dataDevolucaoFormatada);
                                             listaClientes.add(cliente);
                                             System.out.println("ALUGUEL FEITO COM SUCESSO!");
                                         }else {
@@ -651,6 +670,9 @@ public class Menu {
                 }else if(listaClientes.isEmpty()){
                     System.out.println("Não é possivel consultar um aluguel pois não existe nenhum cliente registrado.");
                 }else{
+            			//Data do aluguel e prazo de devolucao
+            			
+            			
                 		System.out.println("CONSULTA DE ALUGUEIS");
                 	for (Cliente item : listaClientes){ // esse é um for mais complexo (for each), daria pra fazer com for simples tmb.
                         System.out.println("----------------------------------------------------------");
@@ -658,8 +680,8 @@ public class Menu {
                         System.out.println("CPF: " + item.getCpfPessoa());
                         //Adicionar for para nome do filme e qntd
                         System.out.println("Nome do filme alugado: " + item.getNomeFilmeAlugado()+" qtd:" + item.getQuantidadeAlugado());
-                        System.out.println("Data do aluguel: " + item.getCpfPessoa());;
-                        System.out.println("Data de devolucao: " + item.getCpfPessoa());
+                        System.out.println("Data do aluguel: " + item.getDataAlugado());
+                        System.out.println("Data de devolucao: " + item.getDataDevolucao());
                         System.out.println("----------------------------------------------------------");
                     }
                 }
