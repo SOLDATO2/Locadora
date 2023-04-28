@@ -24,7 +24,6 @@ public class Menu {
         Scanner scannerString = new Scanner(System.in);
         while(true){
 
-
             System.out.println("SISTEMA DE LOCADORA CD/VHS\n----------------------------------------------");
             System.out.println("ESCOLHA UMA OPÇÃO:");
             System.out.println("[1] REGISTRAR UM CD/VHS");
@@ -38,6 +37,10 @@ public class Menu {
             escolha = scannerInteiro.nextInt();
             // CDs
             if(escolha == 1){
+
+                //RegistroEstoque registroEstoque = new RegistroEstoque(escolha, CDs, VHS);
+                //^^^ substitui toda essa porcao de codigo da primeira opção, leia os comentario em RegistroEstoque.java
+
                 System.out.println("DESEJA REGISTRAR UM CD OU VHS?");
                 System.out.println("[1] CD");
                 System.out.println("[2] VHS");
@@ -124,7 +127,7 @@ public class Menu {
                         limpaConsole();
                     }
                 }
-            }else if(escolha == 2){
+            }else if(escolha == 2){// consultar estoque
                 System.out.println("QUAL ESTOQUE GOSTARIA DE CONSULTAR?");
                 System.out.println("[1] CD");
                 System.out.println("[2] VHS");
@@ -296,7 +299,7 @@ public class Menu {
                                 System.out.println("ESCOLHA UMA OPÇÃO (0, 1, 2, etc...):");
                                 escolha = scannerInteiro.nextInt();
     
-                                Filme filme = filmesTerror.get(escolha);
+
                                 
                                 
                                 System.out.println("INFORME A QUANTIDADE DESEJADA: ");
@@ -311,10 +314,10 @@ public class Menu {
                                     //Provavelmente remover esta parte e colocar no final apenas uma vez
                                             Cliente cliente = new Cliente(nomeCliente, cpfCliente, numeroCelular);
 
-                                            Aluguel aluguel = new Aluguel(cliente);
+                                            Aluguel aluguel = new Aluguel(cliente, CDs.getListaDeTerror().get(linha).getNome(), quantidadeFilme);
                                             aluguel.adicionarFilmes(filmesTerror);
                                             cadastroClientes.adicionar(aluguel);
-                                            //Continuar aqui 27/04/23
+                                            
 
 
                                             
@@ -353,7 +356,7 @@ public class Menu {
                                 System.out.println("ESCOLHA UMA OPÇÃO (0, 1, 2, etc...):");
                                 escolha = scannerInteiro.nextInt();
     
-                                Filme filme = filmesAcao.get(escolha);
+    
                                 
                                 
                                 System.out.println("INFORME A QUANTIDADE DESEJADA: ");
@@ -363,8 +366,12 @@ public class Menu {
                                     if(filmesAcao.get(linha).getQnt() > 0){
                                         if(quantidadeFilme<= CDs.getListaDeAcao().get(linha).getQnt()) {
                                     
-                                            Cliente cliente = new Cliente(nomeCliente, cpfCliente,filme.getNome(),quantidadeFilme,dataFormatada, dataDevolucaoFormatada);
-                                            listaClientes.add(cliente);
+                                            Cliente cliente = new Cliente(nomeCliente, cpfCliente, numeroCelular);
+
+                                            Aluguel aluguel = new Aluguel(cliente, CDs.getListaDeAcao().get(linha).getNome(), quantidadeFilme);
+                                            aluguel.adicionarFilmes(filmesAcao);
+                                            cadastroClientes.adicionar(aluguel);
+
                                             System.out.println("ALUGUEL FEITO COM SUCESSO!\n");
                                         }else {
                                     
@@ -390,7 +397,7 @@ public class Menu {
                                 System.out.println("ESCOLHA UMA OPÇÃO (0, 1, 2, etc...):");
                                 escolha = scannerInteiro.nextInt();
     
-                                Filme filme = filmesDrama.get(escolha);
+              
                                 
                                 
                                 System.out.println("INFORME A QUANTIDADE DESEJADA: ");
@@ -400,8 +407,12 @@ public class Menu {
                                     if(filmesDrama.get(linha).getQnt() > 0){
                                         if(quantidadeFilme<= CDs.getListaDeDrama().get(linha).getQnt()) {
                                     
-                                            Cliente cliente = new Cliente(nomeCliente, cpfCliente,filme.getNome(),quantidadeFilme,dataFormatada, dataDevolucaoFormatada);
-                                            listaClientes.add(cliente);
+                                            Cliente cliente = new Cliente(nomeCliente, cpfCliente, numeroCelular);
+
+                                            Aluguel aluguel = new Aluguel(cliente, CDs.getListaDeDrama().get(linha).getNome(), quantidadeFilme);
+                                            aluguel.adicionarFilmes(filmesDrama);
+                                            cadastroClientes.adicionar(aluguel);
+
                                             System.out.println("ALUGUEL FEITO COM SUCESSO!");
                                         }else {
                                     
@@ -429,7 +440,7 @@ public class Menu {
                                 System.out.println("ESCOLHA UMA OPÇÃO (0, 1, 2, etc...):");
                                 escolha = scannerInteiro.nextInt();
     
-                                Filme filme = filmesComedia.get(escolha);
+                 
                                 
                                 
                                 System.out.println("INFORME A QUANTIDADE DESEJADA: ");
@@ -439,8 +450,12 @@ public class Menu {
                                     if(filmesComedia.get(linha).getQnt() > 0){
                                         if(quantidadeFilme<= CDs.getListaDeComedia().get(linha).getQnt()) {
                                     
-                                            Cliente cliente = new Cliente(nomeCliente, cpfCliente,filme.getNome(),quantidadeFilme,dataFormatada, dataDevolucaoFormatada);
-                                            listaClientes.add(cliente);
+                                            Cliente cliente = new Cliente(nomeCliente, cpfCliente, numeroCelular);
+
+                                            Aluguel aluguel = new Aluguel(cliente, CDs.getListaDeComedia().get(linha).getNome(), quantidadeFilme);
+                                            aluguel.adicionarFilmes(filmesComedia);
+                                            cadastroClientes.adicionar(aluguel);
+
                                             System.out.println("ALUGUEL FEITO COM SUCESSO!");
                                         }else {
                                     
@@ -504,7 +519,7 @@ public class Menu {
                                 System.out.println("ESCOLHA UMA OPÇÃO (0, 1, 2, etc...):");
                                 escolha = scannerInteiro.nextInt();
         
-                                Filme filme = filmesTerror.get(escolha);
+               
                                 
                                 
                                 System.out.println("INFORME A QUANTIDADE DESEJADA: ");
@@ -514,8 +529,12 @@ public class Menu {
                                     if(filmesTerror.get(linha).getQnt() > 0){
                                         if(quantidadeFilme<= VHS.getListaDeTerror().get(linha).getQnt()) {
                                     
-                                            Cliente cliente = new Cliente(nomeCliente, cpfCliente,filme.getNome(),quantidadeFilme,dataFormatada, dataDevolucaoFormatada);
-                                            listaClientes.add(cliente);
+                                            Cliente cliente = new Cliente(nomeCliente, cpfCliente, numeroCelular);
+
+                                            Aluguel aluguel = new Aluguel(cliente, VHS.getListaDeTerror().get(linha).getNome(), quantidadeFilme);
+                                            aluguel.adicionarFilmes(filmesTerror);
+                                            cadastroClientes.adicionar(aluguel);
+
                                             System.out.println("ALUGUEL FEITO COM SUCESSO!");
                                         }else {
                                     
@@ -546,7 +565,7 @@ public class Menu {
                                 System.out.println("ESCOLHA UMA OPÇÃO (0, 1, 2, etc...):");
                                 escolha = scannerInteiro.nextInt();
         
-                                Filme filme = filmesAcao.get(escolha);
+                    
                                 
                                 
                                 System.out.println("INFORME A QUANTIDADE DESEJADA: ");
@@ -556,8 +575,13 @@ public class Menu {
                                     if(filmesAcao.get(linha).getQnt() > 0){
                                         if(quantidadeFilme<= VHS.getListaDeAcao().get(linha).getQnt()) {
                                     
-                                            Cliente cliente = new Cliente(nomeCliente, cpfCliente,filme.getNome(),quantidadeFilme,dataFormatada, dataDevolucaoFormatada);
-                                            listaClientes.add(cliente);
+                                            
+                                            Cliente cliente = new Cliente(nomeCliente, cpfCliente, numeroCelular);
+
+                                            Aluguel aluguel = new Aluguel(cliente, VHS.getListaDeAcao().get(linha).getNome(), quantidadeFilme);
+                                            aluguel.adicionarFilmes(filmesAcao);
+                                            cadastroClientes.adicionar(aluguel);
+                                            
                                             System.out.println("ALUGUEL FEITO COM SUCESSO!");
                                         }else {
                                     
@@ -583,7 +607,7 @@ public class Menu {
                                 System.out.println("ESCOLHA UMA OPÇÃO (0, 1, 2, etc...):");
                                 escolha = scannerInteiro.nextInt();
         
-                                Filme filme = filmesDrama.get(escolha);
+                     
                                 
                                 
                                 System.out.println("INFORME A QUANTIDADE DESEJADA: ");
@@ -593,8 +617,13 @@ public class Menu {
                                     if(filmesDrama.get(linha).getQnt() > 0){
                                         if(quantidadeFilme<= VHS.getListaDeDrama().get(linha).getQnt()) {
                                     
-                                            Cliente cliente = new Cliente(nomeCliente, cpfCliente,filme.getNome(),quantidadeFilme,dataFormatada, dataDevolucaoFormatada);
-                                            listaClientes.add(cliente);
+                                            
+                                            Cliente cliente = new Cliente(nomeCliente, cpfCliente, numeroCelular);
+
+                                            Aluguel aluguel = new Aluguel(cliente, VHS.getListaDeDrama().get(linha).getNome(), quantidadeFilme);
+                                            aluguel.adicionarFilmes(filmesDrama);
+                                            cadastroClientes.adicionar(aluguel);
+                                            
                                             System.out.println("ALUGUEL FEITO COM SUCESSO!");
                                         }else {
                                     
@@ -622,7 +651,7 @@ public class Menu {
                                 System.out.println("ESCOLHA UMA OPÇÃO (0, 1, 2, etc...):");
                                 escolha = scannerInteiro.nextInt();
         
-                                Filme filme = filmesComedia.get(escolha);
+                  
                                 
                                 
                                 System.out.println("INFORME A QUANTIDADE DESEJADA: ");
@@ -632,8 +661,12 @@ public class Menu {
                                     if(filmesComedia.get(linha).getQnt() > 0){
                                         if(quantidadeFilme<= VHS.getListaDeComedia().get(linha).getQnt()) {
                                     
-                                            Cliente cliente = new Cliente(nomeCliente, cpfCliente,filme.getNome(),quantidadeFilme,dataFormatada, dataDevolucaoFormatada);
-                                            listaClientes.add(cliente);
+                                            Cliente cliente = new Cliente(nomeCliente, cpfCliente, numeroCelular);
+
+                                            Aluguel aluguel = new Aluguel(cliente, VHS.getListaDeComedia().get(linha).getNome(), quantidadeFilme);
+                                            aluguel.adicionarFilmes(filmesComedia);
+                                            cadastroClientes.adicionar(aluguel);
+
                                             System.out.println("ALUGUEL FEITO COM SUCESSO!");
                                         }else {
                                     
@@ -667,39 +700,41 @@ public class Menu {
             }else if(escolha == 6){// CONSULTA DE ALUGUEIS
                 if(listasEstaoVazias(CDs, VHS) == true){
                     System.out.println("Não é possivel registrar um aluguel pois não existe nenhum filme em estoque.");
-                }else if(listaClientes.isEmpty()){
+                }else if(cadastroClientes.getAlugueis().isEmpty()){
                     System.out.println("Não é possivel consultar um aluguel pois não existe nenhum cliente registrado.");
                 }else{
             			//Data do aluguel e prazo de devolucao
             			
             			
                 		System.out.println("CONSULTA DE ALUGUEIS");
-                	for (Cliente item : listaClientes){ // esse é um for mais complexo (for each), daria pra fazer com for simples tmb.
+                	for (Aluguel item  : cadastroClientes.getAlugueis()){ // esse é um for mais complexo (for each), daria pra fazer com for simples tmb.
                         System.out.println("----------------------------------------------------------");
-                        System.out.println("Nome cliente: " + item.getNomePessoa());
-                        System.out.println("CPF: " + item.getCpfPessoa());
+                        System.out.println("Nome cliente: " + item.getCliente().getNomePessoa());
+                        System.out.println("CPF: " + item.getCliente().getCpfPessoa());
+                        System.out.println("Numero de Celular: "+ item.getCliente().getNumeroCeluar());
                         //Adicionar for para nome do filme e qntd
-                        System.out.println("Nome do filme alugado: " + item.getNomeFilmeAlugado()+" qtd:" + item.getQuantidadeAlugado());
-                        System.out.println("Data do aluguel: " + item.getDataAlugado());
-                        System.out.println("Data de devolucao: " + item.getDataDevolucao());
+                        System.out.println("Nome do filme alugado: " + item.getNomeFilme()+" qtd:" + item.getQuantidadeAlugado());
+                        System.out.println("Data do aluguel: " + item.getDataFormatada());
+                        System.out.println("Data de devolucao: " + item.getDataDevolucaoFormatada());
                         System.out.println("----------------------------------------------------------");
                     }
                 }
             }else if(escolha == 7){ // Apagar Clientes
-                if(listaClientes.isEmpty()){
+                if(cadastroClientes.getAlugueis().isEmpty()){
                     System.out.println("NÃO É POSSIVEL EFETUAR DEVOLUÇÃO POIS NÃO EXISTE ALUGUEIS REGISTRADOS");
                 }else{
                     int contador = 0;
                     System.out.println("LISTANDO CLIENTES:");
-                    for (Cliente item : listaClientes){ // esse é um for mais complexo (for each), daria pra fazer com for simples tmb.
+                    for (Aluguel item : cadastroClientes.getAlugueis()){ // esse é um for mais complexo (for each), daria pra fazer com for simples tmb.
                         System.out.println("----------------------------------------------------------");
                         System.out.println("["+contador+"]");
-                        System.out.println("Nome cliente: " + item.getNomePessoa());
-                        System.out.println("CPF: " + item.getCpfPessoa());
+                        System.out.println("Nome cliente: " + item.getCliente().getNomePessoa());
+                        System.out.println("CPF: " + item.getCliente().getCpfPessoa());
+                        System.out.println("Numero de Celular: "+ item.getCliente().getNumeroCeluar());
                         //Adicionar for para nome do filme e qntd
-                        System.out.println("Nome do filme alugado: " + item.getNomeFilmeAlugado()+" qtd:" + item.getQuantidadeAlugado());
-                        System.out.println("Data do aluguel: " + item.getCpfPessoa());;
-                        System.out.println("Data de devolucao: " + item.getCpfPessoa());
+                        System.out.println("Nome do filme alugado: " + item.getNomeFilme()+" qtd:" + item.getQuantidadeAlugado());
+                        System.out.println("Data do aluguel: " + item.getDataFormatada());;
+                        System.out.println("Data de devolucao: " + item.getDataDevolucaoFormatada());
                         System.out.println("----------------------------------------------------------");
                         contador++;
                     }
@@ -707,7 +742,7 @@ public class Menu {
                     System.out.println("ESCOLHA UMA OPÇÃO (0, 1, 2, etc...):");
                     escolha = scannerInteiro.nextInt();
                     //Falta devolver quantidade que cliente alugou para estoque (25/04/23)
-                    listaClientes.remove(escolha);
+                    cadastroClientes.getAlugueis().remove(escolha);
                     System.out.println("ALUGUEL APAGADO COM SUCESSO");
                 }
                 

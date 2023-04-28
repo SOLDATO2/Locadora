@@ -9,4 +9,10 @@ public class ControleDeAluguel {
     public void adicionar(Aluguel aluguelTemp){
         this.alugueis.add(aluguelTemp);
     }
+
+    public List<Aluguel> getAlugueis() {
+        return alugueis;
+    }
+
+    
 }
