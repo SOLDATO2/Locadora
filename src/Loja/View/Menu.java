@@ -244,6 +244,7 @@ public class Menu {
                     
                     do {
                     
+                    
                     System.out.println("ESCOLHA UMA DAS OPCOES:");
                     System.out.println("[1] CDs");
                     System.out.println("[2] VHS");
@@ -253,7 +254,7 @@ public class Menu {
                     
                     
                     if(escolha == 1){
-                        if(listasEstaoVaziasUnica(CDs) == true){
+                        if(listasEstaoVaziasUnica(CDs) == true){//fazer mais um if se a quantidade em estoque estiver zerada.
                             System.out.println("Não é possivel alugar CDs pois o estoque está vazio.");
                         }else{
                             System.out.println("ESCOLHA UM GENERO:");
@@ -273,16 +274,6 @@ public class Menu {
                             escolha = scannerInteiro.nextInt();
                             int linha = 0;
                             
-                            
-                          //fazer sistema para pedir quantidade de filmes que o cliente quer alugar. Tambem fazer um if para verificar se a quantidade que o usuario quer
-                            // é <= a quantidade de estoque do filme, e por fim subtrair o estoque - quantidadeFilme
-                            //Verificar o genero do filme escolhido e fazer um for pra cada lista<genero>
-                            
-                            
-                            //Sistema de aluguel de CDs para cada genero.  Obs: fazer uma continuação caso o cliente queira alugar outro filme do mesmo ou outro genero.
-                            //Inserir o cliente na lista de clientes após ter sido criado.
-                            
-                            
                             //Terror
                             if(escolha == 1){
                                 List<Filme> filmesTerror = CDs.getListaDeTerror();
@@ -290,7 +281,224 @@ public class Menu {
                                     if(filmesTerror.get(linha).getQnt() > 0){
                                         System.out.println("["+linha+"]"+":");
                                         System.out.println("NOME: " + CDs.getListaDeTerror().get(linha).getNome());
-                                        System.out.println("QUANTIDADE: "+ CDs.getListaDeTerror().get(linha).getQnt());//alterado de getNome() pra getQnt
+                                        System.out.println("QUANTIDADE: "+ CDs.getListaDeTerror().get(linha).getQnt());
+                                    }else {
+                                    	System.out.println("DIGITE 0 PARA SAIR: ");
+                                    }
+                                }
+                                
+                                //Escolhe o filme da lista
+                                System.out.println("ESCOLHA UMA OPÇÃO (0, 1, 2, etc...):");
+                                escolha = scannerInteiro.nextInt();
+                                
+                                if(filmesTerror.get(escolha).getQnt() > 0){
+
+                                System.out.println("INFORME A QUANTIDADE DESEJADA: ");
+                                int quantidadeFilme = scannerInteiro.nextInt();
+                                
+                                if (quantidadeFilme <= CDs.getListaDeTerror().get(escolha).getQnt()) {
+                                
+                                	CDs.getListaDeTerror().get(escolha).setQnt(quantidadeFilme);//Remove a quantidade pedida do estoque
+                                            
+                                    Cliente cliente = new Cliente(nomeCliente, cpfCliente, numeroCelular);
+                                    Aluguel aluguel = new Aluguel(cliente, CDs.getListaDeTerror().get(escolha).getNome(), quantidadeFilme);
+                                          
+                                            
+                                    aluguel.adicionarFilmes(filmesTerror);
+                                    cadastroClientes.adicionar(aluguel);
+
+                                            System.out.println("ALUGUEL FEITO COM SUCESSO!");
+                                }else if (quantidadeFilme > CDs.getListaDeTerror().get(escolha).getQnt()){
+                                    
+                                            System.out.println("NAO FOI POSSIVEL FAZER O ALUGUEL!");
+                                            System.out.println("QUANTIDADE EM ESTOQUE MENOR DO QUE A DESEJADA");
+
+                                }
+                                
+                               }else {
+                            	   System.out.println("OPCAO INVALIDA!");
+                               }
+                            
+                             //Acao
+                            }else if(escolha == 2){
+                                List<Filme> filmesAcao = CDs.getListaDeAcao();
+                                for(linha = 0; linha < filmesAcao.size(); linha++){
+                                    if(filmesAcao.get(linha).getQnt() > 0){
+                                        System.out.println("["+linha+"]"+":");
+                                        System.out.println("NOME: " + CDs.getListaDeAcao().get(linha).getNome());
+                                        System.out.println("QUANTIDADE: "+ CDs.getListaDeAcao().get(linha).getQnt());
+                                    }else {
+                                    	System.out.println("DIGITE 0 PARA SAIR: ");
+                                    }
+                                }
+                                
+                                //Escolhe o filme da lista
+                                System.out.println("ESCOLHA UMA OPÇÃO (0, 1, 2, etc...):");
+                                escolha = scannerInteiro.nextInt();
+                                
+                                if(filmesAcao.get(escolha).getQnt() > 0){
+
+                                System.out.println("INFORME A QUANTIDADE DESEJADA: ");
+                                int quantidadeFilme = scannerInteiro.nextInt();
+                                
+                                if (quantidadeFilme <= CDs.getListaDeAcao().get(escolha).getQnt()) {
+                                
+                                	CDs.getListaDeAcao().get(escolha).setQnt(quantidadeFilme);//Remove a quantidade pedida do estoque
+                                            
+                                    Cliente cliente = new Cliente(nomeCliente, cpfCliente, numeroCelular);
+                                    Aluguel aluguel = new Aluguel(cliente, CDs.getListaDeAcao().get(escolha).getNome(), quantidadeFilme);
+                                            
+                                    aluguel.adicionarFilmes(filmesAcao);
+                                    cadastroClientes.adicionar(aluguel);
+
+                                            System.out.println("ALUGUEL FEITO COM SUCESSO!");//mudar isso aqui
+                                }else if (quantidadeFilme > CDs.getListaDeAcao().get(escolha).getQnt()){
+                                    
+                                            System.out.println("NAO FOI POSSIVEL FAZER O ALUGUEL!");
+                                            System.out.println("QUANTIDADE EM ESTOQUE MENOR DO QUE A DESEJADA");
+
+                                }
+                                
+                               }else {
+                            	   
+                            	   System.out.println("OPCAO INVALIDA!");
+                            	   //System.out.println("SEM ESTOQUE PARA O FILME: " + CDs.getListaDeTerror().get(escolha).getNome());
+                            	   
+                               }
+                                
+                                //Drama
+                            }else if(escolha == 3){
+                                List<Filme> filmesDrama = CDs.getListaDeDrama();
+                                for(linha = 0; linha < filmesDrama.size(); linha++){
+                                    if(filmesDrama.get(linha).getQnt() > 0){
+                                        System.out.println("["+linha+"]"+":");
+                                        System.out.println("NOME: " + CDs.getListaDeDrama().get(linha).getNome());
+                                        System.out.println("QUANTIDADE: "+ CDs.getListaDeDrama().get(linha).getQnt());
+                                    }else {
+                                    	System.out.println("DIGITE 0 PARA SAIR: ");
+                                    }
+                                }
+                                
+                                //Escolhe o filme da lista
+                                System.out.println("ESCOLHA UMA OPÇÃO (0, 1, 2, etc...):");
+                                escolha = scannerInteiro.nextInt();
+                                
+                                if(filmesDrama.get(escolha).getQnt() > 0){
+
+                                System.out.println("INFORME A QUANTIDADE DESEJADA: ");
+                                int quantidadeFilme = scannerInteiro.nextInt();
+                                
+                                if (quantidadeFilme <= CDs.getListaDeDrama().get(escolha).getQnt()) {
+                                
+                                	CDs.getListaDeDrama().get(escolha).setQnt(quantidadeFilme);//Remove a quantidade pedida do estoque
+                                            
+                                    Cliente cliente = new Cliente(nomeCliente, cpfCliente, numeroCelular);
+                                    Aluguel aluguel = new Aluguel(cliente, CDs.getListaDeDrama().get(escolha).getNome(), quantidadeFilme);
+                                            
+                                            //Terminar primeiro para o genero terror e depois copiar para os outros 
+                                          
+                                            
+                                    aluguel.adicionarFilmes(filmesDrama);
+                                    cadastroClientes.adicionar(aluguel);
+
+                                            System.out.println("ALUGUEL FEITO COM SUCESSO!");//mudar isso aqui
+                                }else if (quantidadeFilme > CDs.getListaDeDrama().get(escolha).getQnt()){
+                                    
+                                            System.out.println("NAO FOI POSSIVEL FAZER O ALUGUEL!");
+                                            System.out.println("QUANTIDADE EM ESTOQUE MENOR DO QUE A DESEJADA");
+
+                                }
+                                
+                               }else {
+                            	   
+                            	   System.out.println("OPCAO INVALIDA!");
+                            	   //System.out.println("SEM ESTOQUE PARA O FILME: " + CDs.getListaDeTerror().get(escolha).getNome());
+                            	   
+                               }
+
+                                //Comedia
+                            }else if(escolha == 4){
+                                List<Filme> filmesComedia = CDs.getListaDeComedia();
+                                for(linha = 0; linha < filmesComedia.size(); linha++){
+                                    if(filmesComedia.get(linha).getQnt() > 0){
+                                        System.out.println("["+linha+"]"+":");
+                                        System.out.println("NOME: " + CDs.getListaDeComedia().get(linha).getNome());
+                                        System.out.println("QUANTIDADE: "+ CDs.getListaDeComedia().get(linha).getQnt());
+                                    }else {
+                                    	System.out.println("DIGITE 0 PARA SAIR: ");
+                                    }
+                                }
+                                
+                                //Escolhe o filme da lista
+                                System.out.println("ESCOLHA UMA OPÇÃO (0, 1, 2, etc...):");
+                                escolha = scannerInteiro.nextInt();
+                                
+                                if(filmesComedia.get(escolha).getQnt() > 0){
+
+                                System.out.println("INFORME A QUANTIDADE DESEJADA: ");
+                                int quantidadeFilme = scannerInteiro.nextInt();
+                                
+                                if (quantidadeFilme <= CDs.getListaDeComedia().get(escolha).getQnt()) {
+                                
+                                	CDs.getListaDeComedia().get(escolha).setQnt(quantidadeFilme);//Remove a quantidade pedida do estoque
+                                            
+                                    Cliente cliente = new Cliente(nomeCliente, cpfCliente, numeroCelular);
+                                    Aluguel aluguel = new Aluguel(cliente, CDs.getListaDeComedia().get(escolha).getNome(), quantidadeFilme);
+                                    
+                                    aluguel.adicionarFilmes(filmesComedia);
+                                    cadastroClientes.adicionar(aluguel);
+
+                                            System.out.println("ALUGUEL FEITO COM SUCESSO!");//mudar isso aqui
+                                }else if (quantidadeFilme > CDs.getListaDeComedia().get(escolha).getQnt()){
+                                    
+                                            System.out.println("NAO FOI POSSIVEL FAZER O ALUGUEL!");
+                                            System.out.println("QUANTIDADE EM ESTOQUE MENOR DO QUE A DESEJADA");
+                                }
+                                
+                               }else {
+                            	   
+                            	   System.out.println("OPCAO INVALIDA!");
+                            	   //System.out.println("SEM ESTOQUE PARA O FILME: " + CDs.getListaDeTerror().get(escolha).getNome());
+                            	   
+                               }
+                            
+                            }
+                        
+                        }
+
+                        
+                        //Aluguel de VHS
+                    }else if(escolha == 2){
+                        if(listasEstaoVaziasUnica(VHS) == true){//fazer mais um if se a quantidade em estoque estiver zerada.
+                            System.out.println("Não é possivel alugar CDs pois o estoque está vazio.");
+                        }else{
+                            System.out.println("ESCOLHA UM GENERO:");
+                            if(!(VHS.getListaDeTerror().isEmpty())){ // mostra as categorias que não estão vazias
+                                System.out.println("[1] TERROR");
+                            }
+                            if(!(VHS.getListaDeAcao().isEmpty())){
+                                System.out.println("[2] ACAO");
+                            }
+                            if(!(VHS.getListaDeDrama().isEmpty())){
+                                System.out.println("[3] DRAMA");
+                            }
+                            if(!(VHS.getListaDeComedia().isEmpty())){
+                                System.out.println("[4] COMEDIA");
+                            }
+    
+                            escolha = scannerInteiro.nextInt();
+                            int linha = 0;
+                            
+                            //Terror
+                            if(escolha == 1){
+                                List<Filme> filmesTerror = VHS.getListaDeTerror();
+                                for(linha = 0; linha < filmesTerror.size(); linha++){
+                                    if(filmesTerror.get(linha).getQnt() > 0){
+                                        System.out.println("["+linha+"]"+":");
+                                        System.out.println("NOME: " + VHS.getListaDeTerror().get(linha).getNome());
+                                        System.out.println("QUANTIDADE: "+ VHS.getListaDeTerror().get(linha).getQnt());
+                                    }else {
+                                    	System.out.println("DIGITE 0 PARA SAIR: ");
                                     }
                                 }
                              
@@ -298,405 +506,191 @@ public class Menu {
                                 //Escolhe o filme da lista
                                 System.out.println("ESCOLHA UMA OPÇÃO (0, 1, 2, etc...):");
                                 escolha = scannerInteiro.nextInt();
-    
+                                
+                                if(filmesTerror.get(escolha).getQnt() > 0){
 
-                                
-                                
                                 System.out.println("INFORME A QUANTIDADE DESEJADA: ");
                                 int quantidadeFilme = scannerInteiro.nextInt();
                                 
-    
-                                for(linha = 0; linha < filmesTerror.size(); linha++) {
-                                    if(filmesTerror.get(linha).getQnt() > 0){
-                                        if(quantidadeFilme<= CDs.getListaDeTerror().get(linha).getQnt()) {
+                                if (quantidadeFilme <= VHS.getListaDeTerror().get(escolha).getQnt()) {
+                                
+                                	VHS.getListaDeTerror().get(escolha).setQnt(quantidadeFilme);//Remove a quantidade pedida do estoque
                                             
-                                            
-                                    //Provavelmente remover esta parte e colocar no final apenas uma vez
-                                            Cliente cliente = new Cliente(nomeCliente, cpfCliente, numeroCelular);
+                                    Cliente cliente = new Cliente(nomeCliente, cpfCliente, numeroCelular);
+                                    Aluguel aluguel = new Aluguel(cliente, VHS.getListaDeTerror().get(escolha).getNome(), quantidadeFilme);
 
-                                            Aluguel aluguel = new Aluguel(cliente, CDs.getListaDeTerror().get(linha).getNome(), quantidadeFilme);
-                                            aluguel.adicionarFilmes(filmesTerror);
-                                            cadastroClientes.adicionar(aluguel);
-                                            
+                                    aluguel.adicionarFilmes(filmesTerror);
+                                    cadastroClientes.adicionar(aluguel);
 
-
-                                            
-                                            
-                                            
-                                            
-                                        //Tirar quantidade pedida do estoque 
-                                            
-                                            System.out.println("ALUGUEL FEITO COM SUCESSO!");
-                                        }else{
+                                            System.out.println("ALUGUEL FEITO COM SUCESSO!");//mudar isso aqui
+                                }else if (quantidadeFilme > VHS.getListaDeTerror().get(escolha).getQnt()){
                                     
                                             System.out.println("NAO FOI POSSIVEL FAZER O ALUGUEL!");
                                             System.out.println("QUANTIDADE EM ESTOQUE MENOR DO QUE A DESEJADA");
-                                            }
-    
-                                        }
-                                    }
-    
-                                //Cliente cliente = new Cliente(nomeCliente, cpfCliente, filme.getNome(), quantidade)
-    
-                                
-    
-    
-                             //Acao
-                            }else if(escolha == 2){//case 2
-                                List<Filme> filmesAcao = CDs.getListaDeAcao();
-                                for(linha = 0; linha < CDs.getListaDeAcao().size(); linha++){
-                                    if(CDs.getListaDeAcao().get(linha).getQnt() > 0){
-                                        System.out.println("["+linha+"]"+":");
-                                        System.out.println("Nome: " + CDs.getListaDeAcao().get(linha).getNome());
-                                        System.out.println("Quantidade: "+ CDs.getListaDeAcao().get(linha).getQnt());
-                                    }
                                 }
                                 
-                              //Escolhe o filme da lista
+                               }else {
+                            	   
+                            	   System.out.println("OPCAO INVALIDA!");
+                            	   //System.out.println("SEM ESTOQUE PARA O FILME: " + CDs.getListaDeTerror().get(escolha).getNome());
+                            	   
+                               }
+                            
+                             //Acao
+                            }else if(escolha == 2){
+                                List<Filme> filmesAcao = VHS.getListaDeAcao();
+                                for(linha = 0; linha < filmesAcao.size(); linha++){
+                                    if(filmesAcao.get(linha).getQnt() > 0){
+                                        System.out.println("["+linha+"]"+":");
+                                        System.out.println("NOME: " + VHS.getListaDeAcao().get(linha).getNome());
+                                        System.out.println("QUANTIDADE: "+ VHS.getListaDeAcao().get(linha).getQnt());
+                                    }else {
+                                    	System.out.println("DIGITE 0 PARA SAIR: ");
+                                    }
+                                }
+                             
+                                
+                                //Escolhe o filme da lista
                                 System.out.println("ESCOLHA UMA OPÇÃO (0, 1, 2, etc...):");
                                 escolha = scannerInteiro.nextInt();
-    
-    
                                 
-                                
+                                if(filmesAcao.get(escolha).getQnt() > 0){
+
                                 System.out.println("INFORME A QUANTIDADE DESEJADA: ");
                                 int quantidadeFilme = scannerInteiro.nextInt();
                                 
-                                for(linha = 0; linha < filmesAcao.size(); linha++) {
-                                    if(filmesAcao.get(linha).getQnt() > 0){
-                                        if(quantidadeFilme<= CDs.getListaDeAcao().get(linha).getQnt()) {
-                                    
-                                            Cliente cliente = new Cliente(nomeCliente, cpfCliente, numeroCelular);
+                                if (quantidadeFilme <= VHS.getListaDeAcao().get(escolha).getQnt()) {
+                                
+                                	VHS.getListaDeAcao().get(escolha).setQnt(quantidadeFilme);//Remove a quantidade pedida do estoque
+                                            
+                                    Cliente cliente = new Cliente(nomeCliente, cpfCliente, numeroCelular);
+                                    Aluguel aluguel = new Aluguel(cliente, VHS.getListaDeAcao().get(escolha).getNome(), quantidadeFilme);
+                                          
+                                            
+                                    aluguel.adicionarFilmes(filmesAcao);
+                                    cadastroClientes.adicionar(aluguel);
 
-                                            Aluguel aluguel = new Aluguel(cliente, CDs.getListaDeAcao().get(linha).getNome(), quantidadeFilme);
-                                            aluguel.adicionarFilmes(filmesAcao);
-                                            cadastroClientes.adicionar(aluguel);
-
-                                            System.out.println("ALUGUEL FEITO COM SUCESSO!\n");
-                                        }else {
+                                            System.out.println("ALUGUEL FEITO COM SUCESSO!");
+                                }else if (quantidadeFilme > VHS.getListaDeAcao().get(escolha).getQnt()){
                                     
                                             System.out.println("NAO FOI POSSIVEL FAZER O ALUGUEL!");
                                             System.out.println("QUANTIDADE EM ESTOQUE MENOR DO QUE A DESEJADA");
-                                            }
-    
-                                        }
-                                    }
+
+                                }
+                                
+                               }else {
+                            	   System.out.println("OPCAO INVALIDA!");
+                            	   //System.out.println("SEM ESTOQUE PARA O FILME: " + CDs.getListaDeTerror().get(escolha).getNome());
+                               }
                                 
                                 //Drama
-                            }else if(escolha == 3){//case 3
-                                List<Filme> filmesDrama = CDs.getListaDeDrama();
-                                for(linha = 0; linha < CDs.getListaDeDrama().size(); linha++){
-                                    if(CDs.getListaDeDrama().get(linha).getQnt() > 0){
+                               }else if(escolha == 3){
+                                List<Filme> filmesDrama = VHS.getListaDeDrama();
+                                for(linha = 0; linha < filmesDrama.size(); linha++){
+                                    if(filmesDrama.get(linha).getQnt() > 0){
                                         System.out.println("["+linha+"]"+":");
-                                        System.out.println("Nome: " + CDs.getListaDeDrama().get(linha).getNome());
-                                        System.out.println("Quantidade: "+ CDs.getListaDeDrama().get(linha).getQnt());
+                                        System.out.println("NOME: " + VHS.getListaDeDrama().get(linha).getNome());
+                                        System.out.println("QUANTIDADE: "+ VHS.getListaDeDrama().get(linha).getQnt());
+                                    }else {
+                                    	System.out.println("DIGITE 0 PARA SAIR: ");
                                     }
                                 }
                                 
-                              //Escolhe o filme da lista
+                                //Escolhe o filme da lista
                                 System.out.println("ESCOLHA UMA OPÇÃO (0, 1, 2, etc...):");
                                 escolha = scannerInteiro.nextInt();
-    
-              
                                 
-                                
+                                if(filmesDrama.get(escolha).getQnt() > 0){
+
                                 System.out.println("INFORME A QUANTIDADE DESEJADA: ");
                                 int quantidadeFilme = scannerInteiro.nextInt();
                                 
-                                for(linha = 0; linha < filmesDrama.size(); linha++) {
-                                    if(filmesDrama.get(linha).getQnt() > 0){
-                                        if(quantidadeFilme<= CDs.getListaDeDrama().get(linha).getQnt()) {
-                                    
-                                            Cliente cliente = new Cliente(nomeCliente, cpfCliente, numeroCelular);
+                                if (quantidadeFilme <= VHS.getListaDeDrama().get(escolha).getQnt()) {
+                                
+                                	VHS.getListaDeDrama().get(escolha).setQnt(quantidadeFilme);//Remove a quantidade pedida do estoque
+                                            
+                                    Cliente cliente = new Cliente(nomeCliente, cpfCliente, numeroCelular);
+                                    Aluguel aluguel = new Aluguel(cliente, VHS.getListaDeDrama().get(escolha).getNome(), quantidadeFilme);
+                                           
+                                    aluguel.adicionarFilmes(filmesDrama);
+                                    cadastroClientes.adicionar(aluguel);
 
-                                            Aluguel aluguel = new Aluguel(cliente, CDs.getListaDeDrama().get(linha).getNome(), quantidadeFilme);
-                                            aluguel.adicionarFilmes(filmesDrama);
-                                            cadastroClientes.adicionar(aluguel);
-
-                                            System.out.println("ALUGUEL FEITO COM SUCESSO!");
-                                        }else {
+                                    System.out.println("ALUGUEL FEITO COM SUCESSO!");//mudar isso aqui
+                                }else if (quantidadeFilme > VHS.getListaDeDrama().get(escolha).getQnt()){
                                     
-                                            System.out.println("NAO FOI POSSIVEL FAZER O ALUGUEL!");
-                                            System.out.println("QUANTIDADE EM ESTOQUE MENOR DO QUE A DESEJADA");
-                                            }
-    
-                                        }
-                                    }
+                                    System.out.println("NAO FOI POSSIVEL FAZER O ALUGUEL!");
+                                    System.out.println("QUANTIDADE EM ESTOQUE MENOR DO QUE A DESEJADA");
+                                }
                                 
-                                
-                                
+                               }else {
+                            	   
+                            	   System.out.println("OPCAO INVALIDA!");
+                            	   //System.out.println("SEM ESTOQUE PARA O FILME: " + CDs.getListaDeTerror().get(escolha).getNome());
+                            	   
+                               }
+
                                 //Comedia
                             }else if(escolha == 4){
-                                List<Filme> filmesComedia = CDs.getListaDeComedia();
-                                for(linha = 0; linha < CDs.getListaDeComedia().size(); linha++){
-                                    if(CDs.getListaDeComedia().get(linha).getQnt() > 0){
+                                List<Filme> filmesComedia = VHS.getListaDeComedia();
+                                for(linha = 0; linha < filmesComedia.size(); linha++){
+                                    if(filmesComedia.get(linha).getQnt() > 0){
                                         System.out.println("["+linha+"]"+":");
-                                        System.out.println("Nome: " + CDs.getListaDeComedia().get(linha).getNome());
-                                        System.out.println("Quantidade: "+ CDs.getListaDeComedia().get(linha).getQnt());
+                                        System.out.println("NOME: " + VHS.getListaDeComedia().get(linha).getNome());
+                                        System.out.println("QUANTIDADE: "+ VHS.getListaDeComedia().get(linha).getQnt());
+                                    }else {
+                                    	System.out.println("DIGITE 0 PARA SAIR: ");
                                     }
                                 }
-                                
-                              //Escolhe o filme da lista
+
+                                //Escolhe o filme da lista
                                 System.out.println("ESCOLHA UMA OPÇÃO (0, 1, 2, etc...):");
                                 escolha = scannerInteiro.nextInt();
-    
-                 
                                 
-                                
+                                if(filmesComedia.get(escolha).getQnt() > 0){
+
                                 System.out.println("INFORME A QUANTIDADE DESEJADA: ");
                                 int quantidadeFilme = scannerInteiro.nextInt();
                                 
-                                for(linha = 0; linha < filmesComedia.size(); linha++) {
-                                    if(filmesComedia.get(linha).getQnt() > 0){
-                                        if(quantidadeFilme<= CDs.getListaDeComedia().get(linha).getQnt()) {
-                                    
-                                            Cliente cliente = new Cliente(nomeCliente, cpfCliente, numeroCelular);
+                                if (quantidadeFilme <= VHS.getListaDeComedia().get(escolha).getQnt()) {
+                                
+                                	VHS.getListaDeComedia().get(escolha).setQnt(quantidadeFilme);//Remove a quantidade pedida do estoque
+                                            
+                                    Cliente cliente = new Cliente(nomeCliente, cpfCliente, numeroCelular);
+                                    Aluguel aluguel = new Aluguel(cliente, VHS.getListaDeComedia().get(escolha).getNome(), quantidadeFilme);
+                                                   
+                                    aluguel.adicionarFilmes(filmesComedia);
+                                    cadastroClientes.adicionar(aluguel);
 
-                                            Aluguel aluguel = new Aluguel(cliente, CDs.getListaDeComedia().get(linha).getNome(), quantidadeFilme);
-                                            aluguel.adicionarFilmes(filmesComedia);
-                                            cadastroClientes.adicionar(aluguel);
-
-                                            System.out.println("ALUGUEL FEITO COM SUCESSO!");
-                                        }else {
+                                            System.out.println("ALUGUEL FEITO COM SUCESSO!");//mudar isso aqui
+                                }else if (quantidadeFilme > VHS.getListaDeComedia().get(escolha).getQnt()){
                                     
                                             System.out.println("NAO FOI POSSIVEL FAZER O ALUGUEL!");
                                             System.out.println("QUANTIDADE EM ESTOQUE MENOR DO QUE A DESEJADA");
-                                            }
-    
-                                        }
-                                    }
-                            } 
+
+                                }
+                                
+                               }else {
+                            	   
+                            	   System.out.println("OPCAO INVALIDA!");
+                            	   //System.out.println("SEM ESTOQUE PARA O FILME: " + CDs.getListaDeTerror().get(escolha).getNome());
+                            	   
+                               }
                             
                             //
                             
                         }
                         
-                        
-                        
-                        
-                        
-                        //
-                        
-                        
-                        
-                        //Aluguel de VHS
-                    }else if(escolha == 2){
-                        if(listasEstaoVaziasUnica(VHS) == true){
-                            System.out.println("Não é possivel alugar VHS pois o estoque está vazio.");
-                        }else{
-                                System.out.println("ESCOLHA UM GENERO:");
-                                if(!(VHS.getListaDeTerror().isEmpty())){ // mostra as categorias que não estão vazias
-                                    System.out.println("[1] TERROR");
-                                }
-                                if(!(VHS.getListaDeAcao().isEmpty())){
-                                    System.out.println("[2] ACAO");
-                                }
-                                if(!(VHS.getListaDeDrama().isEmpty())){
-                                    System.out.println("[3] DRAMA");
-                                }
-                                if(!(VHS.getListaDeComedia().isEmpty())){
-                                    System.out.println("[4] COMEDIA");
-                                }
-                            
-                            
-                            escolha = scannerInteiro.nextInt();
-                            int linha = 0;
-                            
-                            //Terror
-                            //Fazer continuação e inserir na lista de clientes.
-                            if(escolha == 1){
-                                List<Filme> filmesTerror = VHS.getListaDeTerror();
-                                for(linha = 0; linha < filmesTerror.size(); linha++){
-                                    if(filmesTerror.get(linha).getQnt() > 0){
-                                        System.out.println("["+linha+"]"+":");
-                                        System.out.println("NOME: " + VHS.getListaDeTerror().get(linha).getNome());
-                                        System.out.println("QUANTIDADE: "+ VHS.getListaDeTerror().get(linha).getQnt());//alterado de getNome() pra getQnt
-                                    }
-                                }
-                            
-                                
-                                //Escolhe o filme da lista
-                                System.out.println("ESCOLHA UMA OPÇÃO (0, 1, 2, etc...):");
-                                escolha = scannerInteiro.nextInt();
-        
-               
-                                
-                                
-                                System.out.println("INFORME A QUANTIDADE DESEJADA: ");
-                                int quantidadeFilme = scannerInteiro.nextInt();
-                                
-                                for(linha = 0; linha < filmesTerror.size(); linha++) {
-                                    if(filmesTerror.get(linha).getQnt() > 0){
-                                        if(quantidadeFilme<= VHS.getListaDeTerror().get(linha).getQnt()) {
-                                    
-                                            Cliente cliente = new Cliente(nomeCliente, cpfCliente, numeroCelular);
-
-                                            Aluguel aluguel = new Aluguel(cliente, VHS.getListaDeTerror().get(linha).getNome(), quantidadeFilme);
-                                            aluguel.adicionarFilmes(filmesTerror);
-                                            cadastroClientes.adicionar(aluguel);
-
-                                            System.out.println("ALUGUEL FEITO COM SUCESSO!");
-                                        }else {
-                                    
-                                            System.out.println("NAO FOI POSSIVEL FAZER O ALUGUEL!");
-                                            System.out.println("QUANTIDADE EM ESTOQUE MENOR DO QUE A DESEJADA");
-                                            }
-        
-                                        }
-                                    }
-        
-                                //Cliente cliente = new Cliente(nomeCliente, cpfCliente, filme.getNome(), quantidade)
-        
-                                
-        
-        
-                            //Acao
-                            }else if(escolha == 2){
-                                List<Filme> filmesAcao = VHS.getListaDeAcao();
-                                for(linha = 0; linha < VHS.getListaDeAcao().size(); linha++){
-                                    if(VHS.getListaDeAcao().get(linha).getQnt() > 0){
-                                        System.out.println("["+linha+"]"+":");
-                                        System.out.println("Nome: " + VHS.getListaDeAcao().get(linha).getNome());
-                                        System.out.println("Quantidade: "+ VHS.getListaDeAcao().get(linha).getQnt());
-                                    }
-                                }
-                                
-                            //Escolhe o filme da lista
-                                System.out.println("ESCOLHA UMA OPÇÃO (0, 1, 2, etc...):");
-                                escolha = scannerInteiro.nextInt();
-        
-                    
-                                
-                                
-                                System.out.println("INFORME A QUANTIDADE DESEJADA: ");
-                                int quantidadeFilme = scannerInteiro.nextInt();
-                                
-                                for(linha = 0; linha < filmesAcao.size(); linha++) {
-                                    if(filmesAcao.get(linha).getQnt() > 0){
-                                        if(quantidadeFilme<= VHS.getListaDeAcao().get(linha).getQnt()) {
-                                    
-                                            
-                                            Cliente cliente = new Cliente(nomeCliente, cpfCliente, numeroCelular);
-
-                                            Aluguel aluguel = new Aluguel(cliente, VHS.getListaDeAcao().get(linha).getNome(), quantidadeFilme);
-                                            aluguel.adicionarFilmes(filmesAcao);
-                                            cadastroClientes.adicionar(aluguel);
-                                            
-                                            System.out.println("ALUGUEL FEITO COM SUCESSO!");
-                                        }else {
-                                    
-                                            System.out.println("NAO FOI POSSIVEL FAZER O ALUGUEL!");
-                                            System.out.println("QUANTIDADE EM ESTOQUE MENOR DO QUE A DESEJADA");
-                                            }
-        
-                                        }
-                                    }
-                                
-                                //Drama
-                            }else if(escolha == 3){
-                                List<Filme> filmesDrama = VHS.getListaDeDrama();
-                                for(linha = 0; linha < VHS.getListaDeDrama().size(); linha++){
-                                    if(VHS.getListaDeDrama().get(linha).getQnt() > 0){
-                                        System.out.println("["+linha+"]"+":");
-                                        System.out.println("Nome: " + VHS.getListaDeDrama().get(linha).getNome());
-                                        System.out.println("Quantidade: "+ VHS.getListaDeDrama().get(linha).getQnt());
-                                    }
-                                }
-                                
-                            //Escolhe o filme da lista
-                                System.out.println("ESCOLHA UMA OPÇÃO (0, 1, 2, etc...):");
-                                escolha = scannerInteiro.nextInt();
-        
-                     
-                                
-                                
-                                System.out.println("INFORME A QUANTIDADE DESEJADA: ");
-                                int quantidadeFilme = scannerInteiro.nextInt();
-                                
-                                for(linha = 0; linha < filmesDrama.size(); linha++) {
-                                    if(filmesDrama.get(linha).getQnt() > 0){
-                                        if(quantidadeFilme<= VHS.getListaDeDrama().get(linha).getQnt()) {
-                                    
-                                            
-                                            Cliente cliente = new Cliente(nomeCliente, cpfCliente, numeroCelular);
-
-                                            Aluguel aluguel = new Aluguel(cliente, VHS.getListaDeDrama().get(linha).getNome(), quantidadeFilme);
-                                            aluguel.adicionarFilmes(filmesDrama);
-                                            cadastroClientes.adicionar(aluguel);
-                                            
-                                            System.out.println("ALUGUEL FEITO COM SUCESSO!");
-                                        }else {
-                                    
-                                            System.out.println("NAO FOI POSSIVEL FAZER O ALUGUEL!");
-                                            System.out.println("QUANTIDADE EM ESTOQUE MENOR DO QUE A DESEJADA");
-                                            }
-        
-                                        }
-                                    }
-                                
-                                
-                                
-                                //Comedia
-                            }else if(escolha == 4){
-                                List<Filme> filmesComedia = VHS.getListaDeComedia();
-                                for(linha = 0; linha < VHS.getListaDeComedia().size(); linha++){
-                                    if(VHS.getListaDeComedia().get(linha).getQnt() > 0){
-                                        System.out.println("["+linha+"]"+":");
-                                        System.out.println("Nome: " + VHS.getListaDeComedia().get(linha).getNome());
-                                        System.out.println("Quantidade: "+ VHS.getListaDeComedia().get(linha).getQnt());
-                                    }
-                                }
-                                
-                            //Escolhe o filme da lista
-                                System.out.println("ESCOLHA UMA OPÇÃO (0, 1, 2, etc...):");
-                                escolha = scannerInteiro.nextInt();
-        
-                  
-                                
-                                
-                                System.out.println("INFORME A QUANTIDADE DESEJADA: ");
-                                int quantidadeFilme = scannerInteiro.nextInt();
-                                
-                                for(linha = 0; linha < filmesComedia.size(); linha++) {
-                                    if(filmesComedia.get(linha).getQnt() > 0){
-                                        if(quantidadeFilme<= VHS.getListaDeComedia().get(linha).getQnt()) {
-                                    
-                                            Cliente cliente = new Cliente(nomeCliente, cpfCliente, numeroCelular);
-
-                                            Aluguel aluguel = new Aluguel(cliente, VHS.getListaDeComedia().get(linha).getNome(), quantidadeFilme);
-                                            aluguel.adicionarFilmes(filmesComedia);
-                                            cadastroClientes.adicionar(aluguel);
-
-                                            System.out.println("ALUGUEL FEITO COM SUCESSO!");
-                                        }else {
-                                    
-                                            System.out.println("NAO FOI POSSIVEL FAZER O ALUGUEL!");
-                                            System.out.println("QUANTIDADE EM ESTOQUE MENOR DO QUE A DESEJADA");
-                                            }
-        
-                                        }
-                                    }
-                            }
-                        }
-                        
+                      }
+                   }
+                  //ESSA PARTE TA MEIO SUSPEITA, DA PRA FAZER COM BOOL MAS EU NAO ESTOU ACOSTUMADO
+                    if(escolha==3) {
+                        continuar=1;
+                        System.out.println("REGISTRO DE ALUGUEL ENCERRADO\n");
                     }
                     
-                    //ESSA PARTE TA MEIO SUSPEITA, DA PRA FAZER COM BOOL MAS EU NAO ESTOU ACOSTUMADO
-                        if(escolha==3) {
-                            continuar=1;
-                            System.out.println("REGISTRO DE ALUGUEL ENCERRADO\n");
-                        }
-                    
-                    }while(continuar!=1);//Loop para alugar mais filmes
+                   }while(continuar!=1);//Loop para alugar mais filmes
                 }
-                
-                
-                
-             
-                
-                
-                
-                
+                     
             }else if(escolha == 6){// CONSULTA DE ALUGUEIS
                 if(listasEstaoVazias(CDs, VHS) == true){
                     System.out.println("Não é possivel registrar um aluguel pois não existe nenhum filme em estoque.");

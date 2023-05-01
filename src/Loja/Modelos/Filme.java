@@ -28,6 +28,12 @@ public class Filme {
     }
 
 
+	public void setQnt(int qtdPedido) {
+		this.quantidade = quantidade-qtdPedido;
+	}
+
+    
+
 
 }
 
