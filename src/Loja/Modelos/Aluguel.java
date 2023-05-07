@@ -14,16 +14,19 @@ public class Aluguel{
     private String dataFormatada = formatter.format(dataLocacao);
     private String dataDevolucaoFormatada = formatter.format(dataDevolucao);
 
-    String nomeFilme;
-    int quantidadeAlugado;
+    String nomeFilme, tipo, genero;
+    int quantidadeAlugado, codigoProduto;
 
     private Cliente ClienteLocador;
     private List<Filme> filmesLocados = new ArrayList<>(); // ainda nao esta sendo usado. 4/27/23
 
-    public Aluguel(Cliente clienteLocadorEntrada, String nomeFilmeTemp, int quantidadeAlugadoTemp){
+    public Aluguel(Cliente clienteLocadorEntrada, String nomeFilmeTemp, int quantidadeAlugadoTemp, String tipoTemp, String generoTemp, int codigoProdutoTemp){
         this.ClienteLocador = clienteLocadorEntrada;
         this.nomeFilme = nomeFilmeTemp;
         this.quantidadeAlugado = quantidadeAlugadoTemp;
+        this.tipo = tipoTemp;
+        this.genero = generoTemp;
+        this.codigoProduto = codigoProdutoTemp;
         /* 
         this.dataLocacao = LocalDate.now();
         this.dataDevolucao = dataLocacao.plusDays(7);*/ 
@@ -80,6 +83,18 @@ public class Aluguel{
 
     public String getDataDevolucaoFormatada() {
         return dataDevolucaoFormatada;
+    }
+
+    public String getTipo(){
+        return tipo;
+    }
+
+    public String getGenero(){
+        return genero;
+    }
+
+    public int getCodigoProdutoAluguel(){
+        return codigoProduto;
     }
 
     

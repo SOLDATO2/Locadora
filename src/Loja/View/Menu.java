@@ -14,11 +14,11 @@ public class Menu {
         ControleDeAluguel cadastroClientes = new ControleDeAluguel();
         List<Funcionario> listaFuncionarios = new ArrayList<>(); // seria necessario exigir a criação de um funcionario antes usar o programa caso esse lista tivesse dentro da classe Funcionario.java
 
-
-        int escolha;
-        String nome;
-        int quantidade;
-        String nomeIndividuo, cargo, cpf;
+        int quantidadeDevolucao = 0; // variavel que sera usada para devolver qnt alugada para o estoque 
+        int escolha, codigoProduto = 100; // escolha menu e codigo que sera distribuido para cada produto 
+        String nome; // nome filme que sera registrado
+        int quantidade; // quantidade filme que sera registrado
+        String nomeIndividuo, cargo, cpf; // informacoes gerais para registrar nomes, cpf e cargos
         
         Scanner scannerInteiro = new Scanner(System.in);
         Scanner scannerString = new Scanner(System.in);
@@ -38,9 +38,6 @@ public class Menu {
             // CDs
             if(escolha == 1){
 
-                //RegistroEstoque registroEstoque = new RegistroEstoque(escolha, CDs, VHS);
-                //^^^ substitui toda essa porcao de codigo da primeira opção, leia os comentario em RegistroEstoque.java
-
                 System.out.println("DESEJA REGISTRAR UM CD OU VHS?");
                 System.out.println("[1] CD");
                 System.out.println("[2] VHS");
@@ -53,7 +50,7 @@ public class Menu {
                         nome = scannerString.nextLine();
                         System.out.println("QUAL É A QUANTIDADADE?");
                         quantidade = scannerInteiro.nextInt();
-                        Filme cdTerror = new Filme(nome, quantidade);
+                        Filme cdTerror = new Filme(nome, quantidade, codigoProduto); 
                         CDs.addTerror(cdTerror);
                         System.out.println("CD ADICIONADO COM SUCESSO!");
                         limpaConsole();
@@ -62,7 +59,7 @@ public class Menu {
                         nome = scannerString.nextLine();
                         System.out.println("QUAL É A QUANTIDADADE?");
                         quantidade = scannerInteiro.nextInt();
-                        Filme cdAcao = new Filme(nome, quantidade);
+                        Filme cdAcao = new Filme(nome, quantidade, codigoProduto);
                         CDs.addAcao(cdAcao);
                         System.out.println("CD ADICIONADO COM SUCESSO!");
                         limpaConsole();
@@ -71,7 +68,7 @@ public class Menu {
                         nome = scannerString.nextLine();
                         System.out.println("QUAL É A QUANTIDADADE?");
                         quantidade = scannerInteiro.nextInt();
-                        Filme cdDrama = new Filme(nome, quantidade);
+                        Filme cdDrama = new Filme(nome, quantidade, codigoProduto);
                         CDs.addDrama(cdDrama);
                         System.out.println("CD ADICIONADO COM SUCESSO!");
                         limpaConsole();
@@ -80,11 +77,12 @@ public class Menu {
                         nome = scannerString.nextLine();
                         System.out.println("QUAL É A QUANTIDADADE?");
                         quantidade = scannerInteiro.nextInt();
-                        Filme cdComedia = new Filme(nome, quantidade);
+                        Filme cdComedia = new Filme(nome, quantidade, codigoProduto);
                         CDs.addComedia(cdComedia);
                         System.out.println("CD ADICIONADO COM SUCESSO!");
                         limpaConsole();
                     }
+                    codigoProduto++;
                     //VHS
                 }else if(escolha == 2){
                     printGeneros();
@@ -94,7 +92,7 @@ public class Menu {
                         nome = scannerString.nextLine();
                         System.out.println("QUAL É A QUANTIDADADE?");
                         quantidade = scannerInteiro.nextInt();
-                        Filme VHSTerror = new Filme(nome, quantidade);
+                        Filme VHSTerror = new Filme(nome, quantidade, codigoProduto);
                         VHS.addTerror(VHSTerror);
                         System.out.println("CD ADICIONADO COM SUCESSO!");
                         limpaConsole();
@@ -103,7 +101,7 @@ public class Menu {
                         nome = scannerString.nextLine();
                         System.out.println("QUAL É A QUANTIDADADE?");
                         quantidade = scannerInteiro.nextInt();
-                        Filme VHSAcao = new Filme(nome, quantidade);
+                        Filme VHSAcao = new Filme(nome, quantidade, codigoProduto);
                         VHS.addAcao(VHSAcao);
                         System.out.println("CD ADICIONADO COM SUCESSO!");
                         limpaConsole();
@@ -112,7 +110,7 @@ public class Menu {
                         nome = scannerString.nextLine();
                         System.out.println("QUAL É A QUANTIDADADE?");
                         quantidade = scannerInteiro.nextInt();
-                        Filme VHSDrama = new Filme(nome, quantidade);
+                        Filme VHSDrama = new Filme(nome, quantidade, codigoProduto);
                         VHS.addDrama(VHSDrama);
                         System.out.println("CD ADICIONADO COM SUCESSO!");
                         limpaConsole();
@@ -121,11 +119,12 @@ public class Menu {
                         nome = scannerString.nextLine();
                         System.out.println("QUAL É A QUANTIDADADE?");
                         quantidade = scannerInteiro.nextInt();
-                        Filme VHSComedia = new Filme(nome, quantidade);
+                        Filme VHSComedia = new Filme(nome, quantidade, codigoProduto);
                         VHS.addComedia(VHSComedia);
                         System.out.println("CD ADICIONADO COM SUCESSO!");
                         limpaConsole();
                     }
+                    codigoProduto++;
                 }
             }else if(escolha == 2){// consultar estoque
                 System.out.println("QUAL ESTOQUE GOSTARIA DE CONSULTAR?");
@@ -252,8 +251,10 @@ public class Menu {
     
                     escolha = scannerInteiro.nextInt();
                     
-                    
+                    String tipo;
+                    String genero;
                     if(escolha == 1){
+                        tipo = "CDs";
                         if(listasEstaoVaziasUnica(CDs) == true){//fazer mais um if se a quantidade em estoque estiver zerada.
                             System.out.println("Não é possivel alugar CDs pois o estoque está vazio.");
                         }else{
@@ -276,6 +277,7 @@ public class Menu {
                             
                             //Terror
                             if(escolha == 1){
+                                genero = "Terror";
                                 List<Filme> filmesTerror = CDs.getListaDeTerror();
                                 for(linha = 0; linha < filmesTerror.size(); linha++){
                                     if(filmesTerror.get(linha).getQnt() > 0){
@@ -291,6 +293,7 @@ public class Menu {
                                 System.out.println("ESCOLHA UMA OPÇÃO (0, 1, 2, etc...):");
                                 escolha = scannerInteiro.nextInt();
                                 
+                                
                                 if(filmesTerror.get(escolha).getQnt() > 0){
 
                                 System.out.println("INFORME A QUANTIDADE DESEJADA: ");
@@ -301,7 +304,7 @@ public class Menu {
                                 	CDs.getListaDeTerror().get(escolha).setQnt(quantidadeFilme);//Remove a quantidade pedida do estoque
                                             
                                     Cliente cliente = new Cliente(nomeCliente, cpfCliente, numeroCelular);
-                                    Aluguel aluguel = new Aluguel(cliente, CDs.getListaDeTerror().get(escolha).getNome(), quantidadeFilme);
+                                    Aluguel aluguel = new Aluguel(cliente, CDs.getListaDeTerror().get(escolha).getNome(), quantidadeFilme, tipo, genero, CDs.getListaDeTerror().get(escolha).getCodigoProduto()); // codigo de produto armazena o codigo do produto para identificar onde esta o estoque do filme para futuras exclusoes
                                           
                                             
                                     aluguel.adicionarFilmes(filmesTerror);
@@ -321,6 +324,7 @@ public class Menu {
                             
                              //Acao
                             }else if(escolha == 2){
+                                genero = "Acao";
                                 List<Filme> filmesAcao = CDs.getListaDeAcao();
                                 for(linha = 0; linha < filmesAcao.size(); linha++){
                                     if(filmesAcao.get(linha).getQnt() > 0){
@@ -335,7 +339,7 @@ public class Menu {
                                 //Escolhe o filme da lista
                                 System.out.println("ESCOLHA UMA OPÇÃO (0, 1, 2, etc...):");
                                 escolha = scannerInteiro.nextInt();
-                                
+
                                 if(filmesAcao.get(escolha).getQnt() > 0){
 
                                 System.out.println("INFORME A QUANTIDADE DESEJADA: ");
@@ -346,7 +350,7 @@ public class Menu {
                                 	CDs.getListaDeAcao().get(escolha).setQnt(quantidadeFilme);//Remove a quantidade pedida do estoque
                                             
                                     Cliente cliente = new Cliente(nomeCliente, cpfCliente, numeroCelular);
-                                    Aluguel aluguel = new Aluguel(cliente, CDs.getListaDeAcao().get(escolha).getNome(), quantidadeFilme);
+                                    Aluguel aluguel = new Aluguel(cliente, CDs.getListaDeAcao().get(escolha).getNome(), quantidadeFilme, tipo, genero, CDs.getListaDeAcao().get(escolha).getCodigoProduto());
                                             
                                     aluguel.adicionarFilmes(filmesAcao);
                                     cadastroClientes.adicionar(aluguel);
@@ -368,6 +372,7 @@ public class Menu {
                                 
                                 //Drama
                             }else if(escolha == 3){
+                                genero = "Drama";
                                 List<Filme> filmesDrama = CDs.getListaDeDrama();
                                 for(linha = 0; linha < filmesDrama.size(); linha++){
                                     if(filmesDrama.get(linha).getQnt() > 0){
@@ -383,6 +388,7 @@ public class Menu {
                                 System.out.println("ESCOLHA UMA OPÇÃO (0, 1, 2, etc...):");
                                 escolha = scannerInteiro.nextInt();
                                 
+                                
                                 if(filmesDrama.get(escolha).getQnt() > 0){
 
                                 System.out.println("INFORME A QUANTIDADE DESEJADA: ");
@@ -393,7 +399,7 @@ public class Menu {
                                 	CDs.getListaDeDrama().get(escolha).setQnt(quantidadeFilme);//Remove a quantidade pedida do estoque
                                             
                                     Cliente cliente = new Cliente(nomeCliente, cpfCliente, numeroCelular);
-                                    Aluguel aluguel = new Aluguel(cliente, CDs.getListaDeDrama().get(escolha).getNome(), quantidadeFilme);
+                                    Aluguel aluguel = new Aluguel(cliente, CDs.getListaDeDrama().get(escolha).getNome(), quantidadeFilme, tipo, genero, CDs.getListaDeDrama().get(escolha).getCodigoProduto());
                                             
                                             //Terminar primeiro para o genero terror e depois copiar para os outros 
                                           
@@ -418,6 +424,7 @@ public class Menu {
 
                                 //Comedia
                             }else if(escolha == 4){
+                                genero = "Comedia";
                                 List<Filme> filmesComedia = CDs.getListaDeComedia();
                                 for(linha = 0; linha < filmesComedia.size(); linha++){
                                     if(filmesComedia.get(linha).getQnt() > 0){
@@ -432,6 +439,7 @@ public class Menu {
                                 //Escolhe o filme da lista
                                 System.out.println("ESCOLHA UMA OPÇÃO (0, 1, 2, etc...):");
                                 escolha = scannerInteiro.nextInt();
+                        
                                 
                                 if(filmesComedia.get(escolha).getQnt() > 0){
 
@@ -443,7 +451,7 @@ public class Menu {
                                 	CDs.getListaDeComedia().get(escolha).setQnt(quantidadeFilme);//Remove a quantidade pedida do estoque
                                             
                                     Cliente cliente = new Cliente(nomeCliente, cpfCliente, numeroCelular);
-                                    Aluguel aluguel = new Aluguel(cliente, CDs.getListaDeComedia().get(escolha).getNome(), quantidadeFilme);
+                                    Aluguel aluguel = new Aluguel(cliente, CDs.getListaDeComedia().get(escolha).getNome(), quantidadeFilme, tipo, genero, CDs.getListaDeComedia().get(escolha).getCodigoProduto());
                                     
                                     aluguel.adicionarFilmes(filmesComedia);
                                     cadastroClientes.adicionar(aluguel);
@@ -469,6 +477,7 @@ public class Menu {
                         
                         //Aluguel de VHS
                     }else if(escolha == 2){
+                        tipo = "VHS";
                         if(listasEstaoVaziasUnica(VHS) == true){//fazer mais um if se a quantidade em estoque estiver zerada.
                             System.out.println("Não é possivel alugar CDs pois o estoque está vazio.");
                         }else{
@@ -491,6 +500,7 @@ public class Menu {
                             
                             //Terror
                             if(escolha == 1){
+                                genero = "Terror";
                                 List<Filme> filmesTerror = VHS.getListaDeTerror();
                                 for(linha = 0; linha < filmesTerror.size(); linha++){
                                     if(filmesTerror.get(linha).getQnt() > 0){
@@ -506,6 +516,7 @@ public class Menu {
                                 //Escolhe o filme da lista
                                 System.out.println("ESCOLHA UMA OPÇÃO (0, 1, 2, etc...):");
                                 escolha = scannerInteiro.nextInt();
+                            
                                 
                                 if(filmesTerror.get(escolha).getQnt() > 0){
 
@@ -517,7 +528,7 @@ public class Menu {
                                 	VHS.getListaDeTerror().get(escolha).setQnt(quantidadeFilme);//Remove a quantidade pedida do estoque
                                             
                                     Cliente cliente = new Cliente(nomeCliente, cpfCliente, numeroCelular);
-                                    Aluguel aluguel = new Aluguel(cliente, VHS.getListaDeTerror().get(escolha).getNome(), quantidadeFilme);
+                                    Aluguel aluguel = new Aluguel(cliente, VHS.getListaDeTerror().get(escolha).getNome(), quantidadeFilme, tipo, genero, VHS.getListaDeTerror().get(escolha).getCodigoProduto());
 
                                     aluguel.adicionarFilmes(filmesTerror);
                                     cadastroClientes.adicionar(aluguel);
@@ -538,6 +549,7 @@ public class Menu {
                             
                              //Acao
                             }else if(escolha == 2){
+                                genero = "Acao";
                                 List<Filme> filmesAcao = VHS.getListaDeAcao();
                                 for(linha = 0; linha < filmesAcao.size(); linha++){
                                     if(filmesAcao.get(linha).getQnt() > 0){
@@ -553,6 +565,7 @@ public class Menu {
                                 //Escolhe o filme da lista
                                 System.out.println("ESCOLHA UMA OPÇÃO (0, 1, 2, etc...):");
                                 escolha = scannerInteiro.nextInt();
+                        
                                 
                                 if(filmesAcao.get(escolha).getQnt() > 0){
 
@@ -564,7 +577,7 @@ public class Menu {
                                 	VHS.getListaDeAcao().get(escolha).setQnt(quantidadeFilme);//Remove a quantidade pedida do estoque
                                             
                                     Cliente cliente = new Cliente(nomeCliente, cpfCliente, numeroCelular);
-                                    Aluguel aluguel = new Aluguel(cliente, VHS.getListaDeAcao().get(escolha).getNome(), quantidadeFilme);
+                                    Aluguel aluguel = new Aluguel(cliente, VHS.getListaDeAcao().get(escolha).getNome(), quantidadeFilme, tipo, genero, VHS.getListaDeTerror().get(escolha).getCodigoProduto());
                                           
                                             
                                     aluguel.adicionarFilmes(filmesAcao);
@@ -585,6 +598,7 @@ public class Menu {
                                 
                                 //Drama
                                }else if(escolha == 3){
+                                genero = "Drama";
                                 List<Filme> filmesDrama = VHS.getListaDeDrama();
                                 for(linha = 0; linha < filmesDrama.size(); linha++){
                                     if(filmesDrama.get(linha).getQnt() > 0){
@@ -599,6 +613,7 @@ public class Menu {
                                 //Escolhe o filme da lista
                                 System.out.println("ESCOLHA UMA OPÇÃO (0, 1, 2, etc...):");
                                 escolha = scannerInteiro.nextInt();
+                            
                                 
                                 if(filmesDrama.get(escolha).getQnt() > 0){
 
@@ -610,7 +625,7 @@ public class Menu {
                                 	VHS.getListaDeDrama().get(escolha).setQnt(quantidadeFilme);//Remove a quantidade pedida do estoque
                                             
                                     Cliente cliente = new Cliente(nomeCliente, cpfCliente, numeroCelular);
-                                    Aluguel aluguel = new Aluguel(cliente, VHS.getListaDeDrama().get(escolha).getNome(), quantidadeFilme);
+                                    Aluguel aluguel = new Aluguel(cliente, VHS.getListaDeDrama().get(escolha).getNome(), quantidadeFilme, tipo, genero, VHS.getListaDeDrama().get(escolha).getCodigoProduto());
                                            
                                     aluguel.adicionarFilmes(filmesDrama);
                                     cadastroClientes.adicionar(aluguel);
@@ -631,6 +646,7 @@ public class Menu {
 
                                 //Comedia
                             }else if(escolha == 4){
+                                genero = "Comedia";
                                 List<Filme> filmesComedia = VHS.getListaDeComedia();
                                 for(linha = 0; linha < filmesComedia.size(); linha++){
                                     if(filmesComedia.get(linha).getQnt() > 0){
@@ -645,6 +661,7 @@ public class Menu {
                                 //Escolhe o filme da lista
                                 System.out.println("ESCOLHA UMA OPÇÃO (0, 1, 2, etc...):");
                                 escolha = scannerInteiro.nextInt();
+                            
                                 
                                 if(filmesComedia.get(escolha).getQnt() > 0){
 
@@ -656,7 +673,7 @@ public class Menu {
                                 	VHS.getListaDeComedia().get(escolha).setQnt(quantidadeFilme);//Remove a quantidade pedida do estoque
                                             
                                     Cliente cliente = new Cliente(nomeCliente, cpfCliente, numeroCelular);
-                                    Aluguel aluguel = new Aluguel(cliente, VHS.getListaDeComedia().get(escolha).getNome(), quantidadeFilme);
+                                    Aluguel aluguel = new Aluguel(cliente, VHS.getListaDeComedia().get(escolha).getNome(), quantidadeFilme, tipo, genero, VHS.getListaDeComedia().get(escolha).getCodigoProduto());
                                                    
                                     aluguel.adicionarFilmes(filmesComedia);
                                     cadastroClientes.adicionar(aluguel);
@@ -708,6 +725,7 @@ public class Menu {
                         System.out.println("Numero de Celular: "+ item.getCliente().getNumeroCeluar());
                         //Adicionar for para nome do filme e qntd
                         System.out.println("Nome do filme alugado: " + item.getNomeFilme()+" qtd:" + item.getQuantidadeAlugado());
+                        System.out.println("Codigo do produto alugado: " + item.getCodigoProdutoAluguel());
                         System.out.println("Data do aluguel: " + item.getDataFormatada());
                         System.out.println("Data de devolucao: " + item.getDataDevolucaoFormatada());
                         System.out.println("----------------------------------------------------------");
@@ -727,7 +745,8 @@ public class Menu {
                         System.out.println("Numero de Celular: "+ item.getCliente().getNumeroCeluar());
                         //Adicionar for para nome do filme e qntd
                         System.out.println("Nome do filme alugado: " + item.getNomeFilme()+" qtd:" + item.getQuantidadeAlugado());
-                        System.out.println("Data do aluguel: " + item.getDataFormatada());;
+                        System.out.println("Codigo do produto alugado: " + item.getCodigoProdutoAluguel());
+                        System.out.println("Data do aluguel: " + item.getDataFormatada());
                         System.out.println("Data de devolucao: " + item.getDataDevolucaoFormatada());
                         System.out.println("----------------------------------------------------------");
                         contador++;
@@ -736,6 +755,107 @@ public class Menu {
                     System.out.println("ESCOLHA UMA OPÇÃO (0, 1, 2, etc...):");
                     escolha = scannerInteiro.nextInt();
                     //Falta devolver quantidade que cliente alugou para estoque (25/04/23)
+                    
+                    //CDs
+                    if(cadastroClientes.getAlugueis().get(escolha).getTipo() == "CDs"){
+                        if(cadastroClientes.getAlugueis().get(escolha).getGenero() == "Terror"){
+                            for(int x = 0; x < CDs.getListaDeTerror().size(); x++){
+                                if(cadastroClientes.getAlugueis().get(escolha).getCodigoProdutoAluguel() == CDs.getListaDeTerror().get(x).getCodigoProduto()){ // compara o codigo de produto que o cliente alugou com o codigo que tem em estoque
+                                    quantidadeDevolucao = 0;
+                                    quantidadeDevolucao = CDs.getListaDeTerror().get(x).getQnt();
+                                    quantidadeDevolucao += cadastroClientes.getAlugueis().get(escolha).getQuantidadeAlugado();
+
+
+                                    CDs.getListaDeTerror().get(x).setQntEstoque(quantidadeDevolucao);
+                                }
+                            }
+
+                            
+
+                        }else if(cadastroClientes.getAlugueis().get(escolha).getGenero() == "Acao"){
+                            for(int x = 0; x < CDs.getListaDeAcao().size(); x++){
+                                if(cadastroClientes.getAlugueis().get(escolha).getCodigoProdutoAluguel() == CDs.getListaDeAcao().get(x).getCodigoProduto()){ // compara o codigo de produto que o cliente alugou com o codigo que tem em estoque
+                                    quantidadeDevolucao = 0;
+                                    quantidadeDevolucao = CDs.getListaDeAcao().get(x).getQnt();
+                                    quantidadeDevolucao += cadastroClientes.getAlugueis().get(escolha).getQuantidadeAlugado();
+
+
+                                    CDs.getListaDeAcao().get(x).setQntEstoque(quantidadeDevolucao);
+                                }
+                            }
+
+                        }else if(cadastroClientes.getAlugueis().get(escolha).getGenero() == "Drama"){
+                            for(int x = 0; x < CDs.getListaDeDrama().size(); x++){
+                                if(cadastroClientes.getAlugueis().get(escolha).getCodigoProdutoAluguel() == CDs.getListaDeDrama().get(x).getCodigoProduto()){ // compara o codigo de produto que o cliente alugou com o codigo que tem em estoque
+                                    quantidadeDevolucao = 0;
+                                    quantidadeDevolucao = CDs.getListaDeDrama().get(x).getQnt();
+                                    quantidadeDevolucao += cadastroClientes.getAlugueis().get(escolha).getQuantidadeAlugado();
+
+
+                                    CDs.getListaDeDrama().get(x).setQntEstoque(quantidadeDevolucao);
+                                }
+                            }
+
+                        }else if(cadastroClientes.getAlugueis().get(escolha).getGenero() == "Comedia"){
+                            for(int x = 0; x < CDs.getListaDeComedia().size(); x++){
+                                if(cadastroClientes.getAlugueis().get(escolha).getCodigoProdutoAluguel() == CDs.getListaDeComedia().get(x).getCodigoProduto()){ // compara o codigo de produto que o cliente alugou com o codigo que tem em estoque
+                                    quantidadeDevolucao = 0;
+                                    quantidadeDevolucao = CDs.getListaDeComedia().get(x).getQnt();
+                                    quantidadeDevolucao += cadastroClientes.getAlugueis().get(escolha).getQuantidadeAlugado();
+
+
+                                    CDs.getListaDeComedia().get(x).setQntEstoque(quantidadeDevolucao);
+                                }
+                            }
+                        }
+                    }else if(cadastroClientes.getAlugueis().get(escolha).getTipo() == "VHS"){
+                        if(cadastroClientes.getAlugueis().get(escolha).getGenero() == "Terror"){
+                            for(int x = 0; x < VHS.getListaDeComedia().size(); x++){
+                                if(cadastroClientes.getAlugueis().get(escolha).getCodigoProdutoAluguel() == VHS.getListaDeComedia().get(x).getCodigoProduto()){ // compara o codigo de produto que o cliente alugou com o codigo que tem em estoque
+                                    quantidadeDevolucao = 0;
+                                    quantidadeDevolucao = CDs.getListaDeComedia().get(x).getQnt();
+                                    quantidadeDevolucao += cadastroClientes.getAlugueis().get(escolha).getQuantidadeAlugado();
+
+
+                                    VHS.getListaDeComedia().get(x).setQntEstoque(quantidadeDevolucao);
+                                }
+                            }
+                        }else if(cadastroClientes.getAlugueis().get(escolha).getGenero() == "Acao"){
+                            for(int x = 0; x < VHS.getListaDeAcao().size(); x++){
+                                if(cadastroClientes.getAlugueis().get(escolha).getCodigoProdutoAluguel() == VHS.getListaDeAcao().get(x).getCodigoProduto()){ // compara o codigo de produto que o cliente alugou com o codigo que tem em estoque
+                                    quantidadeDevolucao = 0;
+                                    quantidadeDevolucao = CDs.getListaDeAcao().get(x).getQnt();
+                                    quantidadeDevolucao += cadastroClientes.getAlugueis().get(escolha).getQuantidadeAlugado();
+
+
+                                    VHS.getListaDeAcao().get(x).setQntEstoque(quantidadeDevolucao);
+                                }
+                            }
+                        }else if(cadastroClientes.getAlugueis().get(escolha).getGenero() == "Drama"){
+                            for(int x = 0; x < VHS.getListaDeDrama().size(); x++){
+                                if(cadastroClientes.getAlugueis().get(escolha).getCodigoProdutoAluguel() == VHS.getListaDeDrama().get(x).getCodigoProduto()){ // compara o codigo de produto que o cliente alugou com o codigo que tem em estoque
+                                    quantidadeDevolucao = 0;
+                                    quantidadeDevolucao = CDs.getListaDeDrama().get(x).getQnt();
+                                    quantidadeDevolucao += cadastroClientes.getAlugueis().get(escolha).getQuantidadeAlugado();
+
+
+                                    VHS.getListaDeDrama().get(x).setQntEstoque(quantidadeDevolucao);
+                                }
+                            }
+                        }else if(cadastroClientes.getAlugueis().get(escolha).getGenero() == "Comedia"){
+                            for(int x = 0; x < VHS.getListaDeComedia().size(); x++){
+                                if(cadastroClientes.getAlugueis().get(escolha).getCodigoProdutoAluguel() == VHS.getListaDeComedia().get(x).getCodigoProduto()){ // compara o codigo de produto que o cliente alugou com o codigo que tem em estoque
+                                    quantidadeDevolucao = 0;
+                                    quantidadeDevolucao = CDs.getListaDeComedia().get(x).getQnt();
+                                    quantidadeDevolucao += cadastroClientes.getAlugueis().get(escolha).getQuantidadeAlugado();
+
+
+                                    VHS.getListaDeComedia().get(x).setQntEstoque(quantidadeDevolucao);
+                                }
+                            }
+                        }
+                    }
+                    
                     cadastroClientes.getAlugueis().remove(escolha);
                     System.out.println("ALUGUEL APAGADO COM SUCESSO");
                 }
