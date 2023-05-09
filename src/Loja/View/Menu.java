@@ -41,13 +41,13 @@ public class Menu {
                 escolha = scannerInteiro.nextInt();
                 if(escolha == 1){
 
-                    RegistroEstoque.registroCD(escolha, CDs, VHS, codigoProduto);
+                    RegistroEstoque.registroEstoque(escolha, CDs, codigoProduto);
                     codigoProduto++;
 
                     //VHS
                 }else if(escolha == 2){
 
-                    RegistroEstoque.registroVHS(escolha, CDs, VHS, codigoProduto);
+                    RegistroEstoque.registroEstoque(escolha, VHS, codigoProduto);
                     codigoProduto++;
 
                 }
@@ -120,7 +120,7 @@ public class Menu {
             System.out.println("----------------------------------------------------------");
             System.out.println("Nome do filme: " + qualEstoque.getListaDeAcao().get(x).getNome());
             System.out.println("Quantidade: " + qualEstoque.getListaDeAcao().get(x).getQnt());
-            System.out.println("Codigo do produto: " + qualEstoque.getListaDeTerror().get(x).getCodigoProduto());
+            System.out.println("Codigo do produto: " + qualEstoque.getListaDeAcao().get(x).getCodigoProduto());
             System.out.println("----------------------------------------------------------");
         }
     }
@@ -130,7 +130,7 @@ public class Menu {
             System.out.println("----------------------------------------------------------");
             System.out.println("Nome do filme: " + qualEstoque.getListaDeDrama().get(x).getNome());
             System.out.println("Quantidade: " + qualEstoque.getListaDeDrama().get(x).getQnt());
-            System.out.println("Codigo do produto: " + qualEstoque.getListaDeTerror().get(x).getCodigoProduto());
+            System.out.println("Codigo do produto: " + qualEstoque.getListaDeDrama().get(x).getCodigoProduto());
             System.out.println("----------------------------------------------------------");
         }
     }
@@ -140,7 +140,7 @@ public class Menu {
             System.out.println("----------------------------------------------------------");
             System.out.println("Nome do filme: " + qualEstoque.getListaDeComedia().get(x).getNome());
             System.out.println("Quantidade: " + qualEstoque.getListaDeComedia().get(x).getQnt());
-            System.out.println("Codigo do produto: " + qualEstoque.getListaDeTerror().get(x).getCodigoProduto());
+            System.out.println("Codigo do produto: " + qualEstoque.getListaDeComedia().get(x).getCodigoProduto());
             System.out.println("----------------------------------------------------------");
         }
     }

@@ -20,88 +20,41 @@ public class RegistroEstoque {
 
     
 
-    public static void registroCD(int escolha, EstoqueLoja tipoEstoqueCD, EstoqueLoja tipoEstoqueVHS, int codigoProduto) {
+    public static void registroEstoque(int escolha, EstoqueLoja tipoEstoque, int codigoProduto) {
                     System.out.println("QUAL GENERO?");
                     System.out.println("[1] TERROR");
                     System.out.println("[2] ACAO");
                     System.out.println("[3] DRAMA");
                     System.out.println("[4] COMEDIA");
                     escolha = scannerInteiro.nextInt();
-                    if(escolha == 1){ // Adiciona cd Terror
-                        System.out.println("QUAL É O NOME DO FILME?");
-                        nome = scannerString.nextLine();
-                        System.out.println("QUAL É A QUANTIDADADE?");
-                        quantidade = scannerInteiro.nextInt();
-                        Filme cdTerror = new Filme(nome, quantidade, codigoProduto); 
-                        tipoEstoqueCD.addTerror(cdTerror);
-                        System.out.println("CD ADICIONADO COM SUCESSO!");
-                    }else if(escolha == 2){ // Adiciona cd Acao
-                        System.out.println("QUAL É O NOME DO FILME?");
-                        nome = scannerString.nextLine();
-                        System.out.println("QUAL É A QUANTIDADADE?");
-                        quantidade = scannerInteiro.nextInt();
-                        Filme cdAcao = new Filme(nome, quantidade, codigoProduto);
-                        tipoEstoqueCD.addAcao(cdAcao);
-                        System.out.println("CD ADICIONADO COM SUCESSO!");
-                    }else if(escolha == 3){ // Adiciona cd Drama
-                        System.out.println("QUAL É O NOME DO FILME?");
-                        nome = scannerString.nextLine();
-                        System.out.println("QUAL É A QUANTIDADADE?");
-                        quantidade = scannerInteiro.nextInt();
-                        Filme cdDrama = new Filme(nome, quantidade, codigoProduto);
-                        tipoEstoqueCD.addDrama(cdDrama);
-                        System.out.println("CD ADICIONADO COM SUCESSO!");
-                    }else if(escolha == 4){ // Adiciona cd Comedia
-                        System.out.println("QUAL É O NOME DO FILME?");
-                        nome = scannerString.nextLine();
-                        System.out.println("QUAL É A QUANTIDADADE?");
-                        quantidade = scannerInteiro.nextInt();
-                        Filme cdComedia = new Filme(nome, quantidade, codigoProduto);
-                        tipoEstoqueCD.addComedia(cdComedia);
-                        System.out.println("CD ADICIONADO COM SUCESSO!");
+                    if(escolha == 1){ // Adiciona Terror
+                        
+                        tipoEstoque.addTerror(registro(codigoProduto, tipoEstoque));
+                        System.out.println("ADICIONADO COM SUCESSO!");
+                    }else if(escolha == 2){ // Adiciona Acao
+                        
+                        tipoEstoque.addAcao(registro(codigoProduto, tipoEstoque));
+                        System.out.println("ADICIONADO COM SUCESSO!");
+                    }else if(escolha == 3){ // Adiciona Drama
+                        
+                        tipoEstoque.addDrama(registro(codigoProduto, tipoEstoque));
+                        System.out.println("ADICIONADO COM SUCESSO!");
+                    }else if(escolha == 4){ // Adiciona Comedia
+                
+                        tipoEstoque.addComedia(registro(codigoProduto, tipoEstoque));
+                        System.out.println("ADICIONADO COM SUCESSO!");
                     }
         
                 }
-    public static void registroVHS(int escolha, EstoqueLoja tipoEstoqueCD, EstoqueLoja tipoEstoqueVHS, int codigoProduto){
-                System.out.println("QUAL GENERO?");
-                System.out.println("[1] TERROR");
-                System.out.println("[2] ACAO");
-                System.out.println("[3] DRAMA");
-                System.out.println("[4] COMEDIA");
-                escolha = scannerInteiro.nextInt();
-                if(escolha == 1){ // Adiciona Vhs Terror
-                    System.out.println("QUAL É O NOME DO FILME?");
-                    nome = scannerString.nextLine();
-                    System.out.println("QUAL É A QUANTIDADADE?");
-                    quantidade = scannerInteiro.nextInt();
-                    Filme VHSTerror = new Filme(nome, quantidade, codigoProduto);
-                    tipoEstoqueVHS.addTerror(VHSTerror);
-                    System.out.println("CD ADICIONADO COM SUCESSO!");
-                }else if(escolha == 2){ // Adiciona Vhs Acao
-                    System.out.println("QUAL É O NOME DO FILME?");
-                    nome = scannerString.nextLine();
-                    System.out.println("QUAL É A QUANTIDADADE?");
-                    quantidade = scannerInteiro.nextInt();
-                    Filme VHSAcao = new Filme(nome, quantidade, codigoProduto);
-                    tipoEstoqueVHS.addAcao(VHSAcao);
-                    System.out.println("CD ADICIONADO COM SUCESSO!");
-                }else if(escolha == 3){ // Adiciona Vhs Drama
-                    System.out.println("QUAL É O NOME DO FILME?");
-                    nome = scannerString.nextLine();
-                    System.out.println("QUAL É A QUANTIDADADE?");
-                    quantidade = scannerInteiro.nextInt();
-                    Filme VHSDrama = new Filme(nome, quantidade, codigoProduto);
-                    tipoEstoqueVHS.addDrama(VHSDrama);
-                    System.out.println("CD ADICIONADO COM SUCESSO!");
-                }else if(escolha == 4){ // Adiciona Vhs Comedia
-                    System.out.println("QUAL É O NOME DO FILME?");
-                    nome = scannerString.nextLine();
-                    System.out.println("QUAL É A QUANTIDADADE?");
-                    quantidade = scannerInteiro.nextInt();
-                    Filme VHSComedia = new Filme(nome, quantidade, codigoProduto);
-                    tipoEstoqueVHS.addComedia(VHSComedia);
-                    System.out.println("CD ADICIONADO COM SUCESSO!");
-                }
+
+    static Filme registro(int codigoProduto, EstoqueLoja tipoEstoque){
+        System.out.println("QUAL É O NOME DO FILME?");
+        nome = scannerString.nextLine();
+        System.out.println("QUAL É A QUANTIDADADE?");
+        quantidade = scannerInteiro.nextInt();
+        Filme filme = new Filme(nome, quantidade, codigoProduto);
+        return filme;
+
     }
 }
 
