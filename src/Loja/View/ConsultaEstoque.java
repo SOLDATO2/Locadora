@@ -6,7 +6,7 @@ import Loja.Modelos.EstoqueLoja;
 
 public class ConsultaEstoque {
     static Scanner scannerInteiro = new Scanner(System.in);
-    public static void ConsultaAluguelFunc(int escolha, EstoqueLoja CDs, EstoqueLoja VHS){
+    public static void consultaAluguelFunc(int escolha, EstoqueLoja CDs, EstoqueLoja VHS){
                 
 
                 System.out.println("QUAL ESTOQUE GOSTARIA DE CONSULTAR?");

@@ -87,7 +87,7 @@ public class DevolucaoAluguel {
                             CDs.getListaDeComedia().get(x).setQntEstoque(quantidadeDevolucao);
                         }
                     }
-                }
+                }//VHS
             }else if(cadastroClientes.getAlugueis().get(escolha).getTipo() == "VHS"){
                 if(cadastroClientes.getAlugueis().get(escolha).getGenero() == "Terror"){
                     for(int x = 0; x < VHS.getListaDeTerror().size(); x++){

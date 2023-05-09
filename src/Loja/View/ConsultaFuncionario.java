@@ -5,7 +5,7 @@ import java.util.List;
 import Loja.Modelos.Funcionario;
 
 public class ConsultaFuncionario {
-    public static void ConsultaFuncionarioFunc(List<Funcionario> listaFuncionariosTemp){
+    public static void consultaFuncionarioFunc(List<Funcionario> listaFuncionariosTemp){
         if(listaFuncionariosTemp.isEmpty()){
                     
             System.out.println("Não existe nenhum funcionario registrado");

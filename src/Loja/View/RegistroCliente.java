@@ -14,7 +14,7 @@ public class RegistroCliente {
     static Scanner scannerInteiro = new Scanner(System.in);
     static Scanner scannerString = new Scanner(System.in);
 
-    public static void RegistroClienteFunc(EstoqueLoja CDs, EstoqueLoja VHS, int escolha, ControleDeAluguel cadastroClientes){
+    public static void registroClienteFunc(EstoqueLoja CDs, EstoqueLoja VHS, int escolha, ControleDeAluguel cadastroClientes){
 
         
 

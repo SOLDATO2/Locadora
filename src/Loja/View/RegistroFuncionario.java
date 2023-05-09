@@ -14,7 +14,7 @@ public class RegistroFuncionario {
     static Scanner scannerInteiro = new Scanner(System.in);
     static Scanner scannerString = new Scanner(System.in);
 
-    public static void RegistroFuncionarioFunc(List<Funcionario> listaFuncionariosTemp){
+    public static void registroFuncionarioFunc(List<Funcionario> listaFuncionariosTemp){
         System.out.println("DIGITE O NOME:");
         nomeIndividuo = scannerString.nextLine();
         System.out.println("DIGITE O CPF:");

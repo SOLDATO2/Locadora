@@ -52,27 +52,27 @@ public class Menu {
 
                 }
             }else if(escolha == 2){// consultar estoque
-                ConsultaEstoque.ConsultaAluguelFunc(escolha, CDs, VHS);
+                ConsultaEstoque.consultaAluguelFunc(escolha, CDs, VHS);
             }else if(escolha == 3){
 
-                RegistroFuncionario.RegistroFuncionarioFunc(listaFuncionarios);
+                RegistroFuncionario.registroFuncionarioFunc(listaFuncionarios);
 
             }else if(escolha == 4){
                 
-                ConsultaFuncionario.ConsultaFuncionarioFunc(listaFuncionarios);
+                ConsultaFuncionario.consultaFuncionarioFunc(listaFuncionarios);
 
             }else if(escolha == 5){ // REGISTRO DE CLIENTE ( EFETUAR ALUGUEL)
                 if(listasEstaoVazias(CDs, VHS)== true){ // verifica se existe estoque para registrar clientes
                     System.out.println("NÃO É POSSIVEL REGISTRAR CLIENTES POIS NÃO EXISTE FILMES EM ESTOQUE");
                 }else{
 
-                    RegistroCliente.RegistroClienteFunc(CDs, VHS, escolha, cadastroClientes);
+                    RegistroCliente.registroClienteFunc(CDs, VHS, escolha, cadastroClientes);
 
                 }
                      
             }else if(escolha == 6){// CONSULTA DE ALUGUEIS
                 
-                ConsultaAluguel.ConsultaAluguelFunc(CDs, VHS, cadastroClientes);
+                ConsultaAluguel.consultaAluguelFunc(CDs, VHS, cadastroClientes);
 
             }else if(escolha == 7){ // Apagar Clientes
 
