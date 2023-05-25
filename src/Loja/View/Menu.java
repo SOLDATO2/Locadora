@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import Loja.Modelos.*;
 
 public class Menu {
-    public void menuLoja(){
+    static public void menuLoja(){
         EstoqueLoja CDs = new EstoqueLoja();
         EstoqueLoja VHS = new EstoqueLoja();
 
@@ -84,18 +84,12 @@ public class Menu {
                 break;
             }else{
                 System.out.println("Escolha Invalida.");
-                limpaConsole();
+            
             }
         }
     }
 
     // Funcoes
-    private void limpaConsole(){
-        int x;
-        for(x = 0; x < 100; x++){
-            System.out.println(" \n");
-        }
-    }
 
     public static void printGeneros(){
         System.out.println("QUAL GENERO?");
